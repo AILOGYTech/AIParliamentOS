@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="./logo-ailogy.png">
   <style>
     :root {
       --navy: #0A1628;
@@ -21,9 +22,13 @@
       --gray-200: #E2E8F0;
       --gray-400: #94A3B8;
       --slate: #475569;
+      --shadow-sm: 0 4px 20px rgba(10,22,40,0.06);
+      --shadow-md: 0 12px 36px rgba(10,22,40,0.11);
+      --radius-lg: 16px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; color: #1e293b; background: #fff; overflow-x: hidden; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #1e293b; background: #fff; overflow-x: hidden; line-height: 1.5; }
 
     .dot-grid {
       background-image: radial-gradient(circle, rgba(20,184,166,0.15) 1px, transparent 1px);
@@ -102,6 +107,24 @@
       line-height: 1.15; color: var(--navy); letter-spacing: -0.02em;
     }
     .section-title-white { color: #fff; }
+    .section-head {
+      max-width: none; margin-bottom: 48px;
+    }
+    .section-eyebrow {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal); display: flex;
+      align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+    .section-eyebrow::before {
+      content: ''; width: 24px; height: 2px; background: currentColor;
+      display: inline-block;
+    }
+    .section-copy {
+      font-size: 17px; color: var(--slate); line-height: 1.75;
+      max-width: 1180px; margin-top: 18px;
+    }
+    .section-head.dark .section-eyebrow { color: var(--teal-bright); }
+    .section-head.dark .section-copy { color: rgba(255,255,255,0.62); }
 
     #main-header {
       position: sticky; top: 0; z-index: 100;
@@ -154,6 +177,164 @@
     .arch-detail { display: none; animation: fadeIn 0.3s ease; }
     .arch-detail.active { display: block; }
 
+    #architecture {
+      background: linear-gradient(180deg, #fff 0%, var(--gray-50) 100%) !important;
+      position: relative; overflow: hidden;
+    }
+    #architecture::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(20,184,166,0.08) 1px, transparent 1px);
+      background-size: 28px 28px; pointer-events: none;
+    }
+    .architecture-shell { position: relative; z-index: 1; }
+    .arch-map {
+      display: grid; grid-template-columns: 0.92fr 1.08fr;
+      gap: 24px; align-items: stretch; margin-bottom: 24px;
+    }
+    .arch-panel {
+      background: #fff; border: 1px solid var(--gray-200);
+      border-radius: 16px; padding: 24px;
+      box-shadow: 0 4px 24px rgba(10,22,40,0.06);
+    }
+    .arch-panel.dark {
+      background: var(--navy); border-color: rgba(20,184,166,0.22);
+      color: #fff; position: relative; overflow: hidden;
+    }
+    .arch-panel.dark::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(20,184,166,0.12) 1px, transparent 1px);
+      background-size: 28px 28px; opacity: 0.7; pointer-events: none;
+    }
+    .arch-panel > * { position: relative; z-index: 1; }
+    .arch-panel-label {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 10px;
+    }
+    .arch-panel.dark .arch-panel-label { color: var(--teal-bright); }
+    .arch-panel-title {
+      font-size: 22px; font-weight: 800; color: var(--navy);
+      line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 18px;
+    }
+    .arch-panel.dark .arch-panel-title { color: #fff; }
+    .arch-layer-stack {
+      display: grid; gap: 10px; position: relative;
+    }
+    .arch-layer-stack::before {
+      content: ''; position: absolute; left: 21px; top: 20px; bottom: 20px;
+      width: 2px; background: linear-gradient(180deg, var(--teal-bright), var(--gold));
+      opacity: 0.35;
+    }
+    .arch-layer {
+      display: grid; grid-template-columns: 44px minmax(0, 1fr);
+      gap: 12px; align-items: start; position: relative;
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: 12px; padding: 14px;
+    }
+    .arch-layer-num {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--navy); color: var(--teal-bright);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; z-index: 1;
+    }
+    .arch-layer h4 {
+      font-size: 15px; font-weight: 800; color: var(--navy);
+      margin-bottom: 5px; line-height: 1.25;
+    }
+    .arch-layer p {
+      font-size: 13px; color: var(--slate); line-height: 1.55;
+    }
+    .arch-flow {
+      display: grid; gap: 12px;
+    }
+    .arch-step {
+      display: grid; grid-template-columns: 42px minmax(0, 1fr);
+      gap: 12px; align-items: start; padding: 14px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; position: relative;
+    }
+    .arch-step:not(:last-child)::after {
+      content: ''; position: absolute; left: 35px; bottom: -13px;
+      width: 2px; height: 13px; background: var(--teal-bright);
+      opacity: 0.65;
+    }
+    .arch-step-num {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(20,184,166,0.16);
+      border: 1px solid rgba(20,184,166,0.35);
+      color: var(--teal-bright); font-size: 11px; font-weight: 800;
+    }
+    .arch-step h4 {
+      font-size: 16px; font-weight: 800; color: #fff;
+      line-height: 1.25; margin-bottom: 5px;
+    }
+    .arch-step p {
+      font-size: 13px; color: rgba(255,255,255,0.68);
+      line-height: 1.6;
+    }
+    .arch-bridge {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .arch-bridge-card {
+      background: #fff; border: 1px solid var(--gray-200);
+      border-radius: 14px; padding: 22px;
+      box-shadow: 0 4px 24px rgba(10,22,40,0.06);
+      position: relative;
+    }
+    .arch-bridge-card:not(:last-child)::after {
+      content: '→'; position: absolute; right: -15px; top: 50%;
+      transform: translateY(-50%); width: 30px; height: 30px;
+      border-radius: 50%; background: var(--navy); color: var(--teal-bright);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; z-index: 2;
+    }
+    .arch-bridge-card h4 {
+      font-size: 16px; font-weight: 800; color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .arch-bridge-card p {
+      font-size: 14px; color: var(--slate); line-height: 1.65;
+    }
+    .data-pipeline {
+      background: #fff; border: 1px solid var(--gray-200);
+      border-radius: 16px; padding: 24px;
+      box-shadow: 0 4px 24px rgba(10,22,40,0.06);
+    }
+    .data-pipeline-grid {
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px; position: relative;
+    }
+    .data-pipeline-grid::before {
+      content: ''; position: absolute; left: 8%; right: 8%; top: 25px;
+      height: 2px; background: linear-gradient(90deg, var(--teal-bright), var(--gold));
+      opacity: 0.45;
+    }
+    .data-stage {
+      position: relative; padding-top: 54px;
+    }
+    .data-stage-dot {
+      position: absolute; top: 10px; left: 0;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--navy); color: var(--teal-bright);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; box-shadow: 0 0 0 6px #fff;
+      z-index: 1;
+    }
+    .data-stage-card {
+      min-height: 150px; background: var(--gray-50);
+      border: 1px solid var(--gray-200); border-radius: 12px;
+      padding: 18px 16px;
+    }
+    .data-stage-card h4 {
+      font-size: 15px; font-weight: 800; color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .data-stage-card p {
+      font-size: 13px; color: var(--slate); line-height: 1.6;
+    }
+
     .flow-line-container { position: relative; overflow: hidden; }
     .flow-line-container::before {
       content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 40px;
@@ -166,6 +347,139 @@
       padding: 24px; transition: all 0.3s ease;
     }
     .module-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(10,22,40,0.1); border-color: rgba(20,184,166,0.3); }
+
+    #modules .wrap {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: 1fr; gap: 24px; align-items: stretch;
+    }
+    #modules .group {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(226,232,240,0.9);
+      border-radius: 16px; padding: 18px;
+      box-shadow: 0 4px 24px rgba(10,22,40,0.06);
+      display: flex; flex-direction: column;
+    }
+    #modules .group-row {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 18px;
+    }
+    #modules .group-label {
+      font-size: 13px; font-weight: 800; color: var(--navy);
+      letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+    }
+    #modules .group-line {
+      height: 1px; flex: 1;
+      background: linear-gradient(90deg, rgba(20,184,166,0.45), rgba(226,232,240,0.4));
+    }
+    #modules .module-stack {
+      display: grid; grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 14px; flex: 1;
+    }
+    #modules .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 999px; padding: 6px 10px;
+      font-size: 11px; font-weight: 700; white-space: nowrap;
+      border: 1px solid transparent;
+    }
+    #modules .badge-teal {
+      background: rgba(20,184,166,0.1); color: var(--teal);
+      border-color: rgba(20,184,166,0.25);
+    }
+    #modules .badge-purple {
+      background: rgba(10,22,40,0.06); color: var(--navy);
+      border-color: rgba(10,22,40,0.12);
+    }
+    #modules .badge-coral {
+      background: rgba(201,168,76,0.12); color: #7c5c12;
+      border-color: rgba(201,168,76,0.3);
+    }
+    #modules .card {
+      background: #fff; border: 1px solid var(--gray-200);
+      border-radius: 14px; padding: 22px;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; min-height: 0;
+    }
+    #modules .card::before {
+      content: ''; position: absolute; inset: 0 auto 0 0;
+      width: 3px; background: linear-gradient(180deg, var(--teal-bright), var(--gold));
+      opacity: 0.85;
+    }
+    #modules .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(10,22,40,0.1);
+      border-color: rgba(20,184,166,0.32);
+    }
+    #modules .card-header {
+      display: flex; align-items: flex-start; gap: 14px;
+      margin-bottom: 14px; min-height: 68px;
+    }
+    #modules .card-icon {
+      width: 44px; height: 44px; flex: 0 0 44px;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(20,184,166,0.2);
+      background: var(--teal-glow) !important; color: var(--teal) !important;
+      font-size: 20px;
+    }
+    #modules .card-icon i {
+      width: 18px; height: 18px; display: block; border-radius: 5px;
+      background: currentColor; opacity: 0.9;
+    }
+    #modules .card-meta { min-width: 0; flex: 1; }
+    #modules .card-tag {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+      font-size: 12px; font-weight: 800; color: var(--teal) !important;
+      letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px;
+    }
+    #modules .number-chip {
+      width: 24px; height: 24px; border-radius: 7px;
+      background: var(--navy); color: var(--teal-bright);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800;
+    }
+    #modules .card-title {
+      font-size: 19px; font-weight: 800; color: var(--navy);
+      line-height: 1.25; letter-spacing: -0.01em;
+    }
+    #modules .card-desc {
+      font-size: 14px; color: var(--slate); line-height: 1.7;
+      margin-bottom: 16px; min-height: 72px;
+    }
+    #modules .divider {
+      height: 1px; background: var(--gray-200); margin: 0 0 16px;
+    }
+    #modules .two-col {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px; flex: 1; align-items: stretch;
+    }
+    #modules .col {
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: 10px; padding: 14px;
+      display: flex; flex-direction: column; min-height: 0;
+    }
+    #modules .col-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 800; color: var(--teal) !important;
+      text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 10px;
+    }
+    #modules .col-label i {
+      width: 12px; height: 12px; display: inline-block; border-radius: 50%;
+      background: currentColor;
+    }
+    #modules .feat-list {
+      list-style: none; display: grid; gap: 8px;
+      font-size: 13px; color: var(--slate); line-height: 1.55;
+      align-content: start;
+    }
+    #modules .feat-list li {
+      position: relative; padding-left: 16px;
+    }
+    #modules .feat-list li::before {
+      content: ''; position: absolute; left: 0; top: 0.7em;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal-bright);
+    }
+    #modules .ai-list li::before { background: var(--gold); }
+    #modules .security-list li::before { background: #dc2626; }
 
     .roadmap-card {
       background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
@@ -185,14 +499,6 @@
     #mobile-menu { display: none; }
     #mobile-menu.open { display: block; }
 
-    .data-col { border-right: 1px solid var(--gray-200); padding: 0 24px; position: relative; }
-    .data-col:last-child { border-right: none; }
-    .data-col::after {
-      content: '→'; position: absolute; right: -12px; top: 50%;
-      transform: translateY(-50%); color: var(--teal-bright); font-size: 18px; font-weight: 700;
-    }
-    .data-col:last-child::after { display: none; }
-
     .step-card {
       background: #fff; border: 1px solid var(--gray-200); border-radius: 12px;
       padding: 24px 20px; position: relative; transition: all 0.3s ease;
@@ -211,8 +517,9 @@
 
     .kpi-card {
       background: #fff; border: 1px solid var(--gray-200); border-radius: 12px;
-      padding: 22px 24px; display: flex; align-items: flex-start; gap: 16px;
-      transition: all 0.3s ease;
+      padding: 24px; display: flex; align-items: flex-start; gap: 14px;
+      transition: all 0.3s ease; min-height: 190px; flex-direction: column;
+      position: relative; overflow: hidden;
     }
     .kpi-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(10,22,40,0.09); border-color: rgba(20,184,166,0.3); }
     .kpi-num {
@@ -220,6 +527,107 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 800; color: var(--teal-bright); flex-shrink: 0;
       letter-spacing: 0.5px;
+    }
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .kpi-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: linear-gradient(180deg, var(--teal-bright), var(--gold));
+      opacity: 0.85;
+    }
+    .kpi-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; width: 100%;
+    }
+    .kpi-label {
+      font-size: 11px; font-weight: 800; color: var(--teal);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .kpi-card h3 {
+      font-size: 18px; font-weight: 800; color: var(--navy);
+      line-height: 1.25; letter-spacing: -0.01em;
+    }
+    .kpi-card p {
+      font-size: 14px; color: var(--slate); line-height: 1.65;
+    }
+    .kpi-scope {
+      margin-top: auto; padding-top: 14px;
+      border-top: 1px solid var(--gray-200);
+      font-size: 12px; font-weight: 700; color: var(--navy);
+    }
+
+    #value {
+      background: linear-gradient(135deg, var(--navy) 0%, #0d1f3c 62%, #081120 100%) !important;
+      position: relative; overflow: hidden;
+    }
+    #value::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(20,184,166,0.12) 1px, transparent 1px);
+      background-size: 28px 28px; opacity: 0.65; pointer-events: none;
+    }
+    #value::after {
+      content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--teal-bright), var(--gold));
+    }
+    .value-shell { position: relative; z-index: 1; }
+    .value-heading {
+      display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+      gap: 48px; align-items: end; margin-bottom: 40px;
+    }
+    .value-kicker {
+      font-size: clamp(34px, 4vw, 54px); font-weight: 800;
+      line-height: 1.08; color: #fff; letter-spacing: -0.02em;
+    }
+    .value-kicker span { color: var(--teal-bright); }
+    .value-lead {
+      font-size: 17px; color: rgba(255,255,255,0.68);
+      line-height: 1.75; max-width: 640px;
+    }
+    .value-grid {
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .value-card {
+      min-height: 260px; padding: 24px 22px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px; display: flex; flex-direction: column;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+    .value-card::before {
+      content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal-bright), var(--gold));
+      opacity: 0.85;
+    }
+    .value-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(20,184,166,0.45);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.22);
+    }
+    .value-num {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(20,184,166,0.16);
+      border: 1px solid rgba(20,184,166,0.35);
+      color: var(--teal-bright); font-size: 12px; font-weight: 800;
+      margin-bottom: 22px;
+    }
+    .value-card h3 {
+      font-size: 20px; font-weight: 800; color: #fff;
+      line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.01em;
+    }
+    .value-card p {
+      font-size: 14px; color: rgba(255,255,255,0.68);
+      line-height: 1.7; flex: 1;
+    }
+    .value-tag {
+      margin-top: 22px; padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 11px; font-weight: 800; color: var(--gold);
+      letter-spacing: 0.08em; text-transform: uppercase;
     }
 
     .security-badge {
@@ -281,7 +689,47 @@
     }
     @media (max-width: 768px) {
       .section-title { font-size: 28px; }
-      .hero-dashboard { display: none; }
+      .hero-dashboard {
+        display: block;
+        width: 100%;
+        margin-top: 8px;
+        border-radius: 14px;
+        box-shadow: 0 18px 44px rgba(10,22,40,0.32);
+      }
+      .hero-dashboard + .security-badge {
+        position: static !important;
+        margin-top: 12px;
+        width: fit-content;
+        max-width: 100%;
+      }
+      .dashboard-header {
+        padding: 12px 14px;
+        gap: 10px;
+      }
+      .dashboard-header span:not(.live-badge) {
+        font-size: 12px !important;
+      }
+      .stack-column-mobile { grid-template-columns: 1fr !important; }
+      .stack-column-mobile > * { width: 100%; }
+      #modules .wrap,
+      #modules .two-col { grid-template-columns: 1fr; }
+      #modules .module-stack { grid-template-rows: none; }
+      #modules .group-row { flex-wrap: wrap; }
+      #modules .group-label { white-space: normal; }
+      #modules .card-header { flex-wrap: wrap; min-height: 0; }
+      #modules .card-desc { min-height: 0; }
+      .arch-map,
+      .arch-bridge,
+      .data-pipeline-grid { grid-template-columns: 1fr; }
+      .arch-bridge-card::after,
+      .data-pipeline-grid::before { display: none !important; }
+      .data-stage { padding-top: 0; padding-left: 46px; }
+      .data-stage-dot { top: 0; left: 0; }
+      .value-heading,
+      .value-grid { grid-template-columns: 1fr; }
+      .value-card { min-height: 0; }
+      .kpi-grid { grid-template-columns: 1fr; }
+      .kpi-card { min-height: 0; }
     }
     @media print {
       #main-header { position: static; }
@@ -291,29 +739,12 @@
 </head>
 <body>
 
-<!-- TOP METADATA BAR -->
-<div style="background: var(--gray-50); border-bottom: 1px solid var(--gray-200); padding: 8px 0;">
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-    <span style="font-size: 12px; color: var(--slate); font-weight: 500;">
-      Phạm vi: <strong>Quốc hội số Việt Nam (2025–2030)</strong>
-    </span>
-    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-      <span style="font-size: 12px; color: var(--slate); font-weight: 500;">Mã đề án: <strong>AP-OS/2025-2030</strong></span>
-      <div style="display: flex; align-items: center; gap: 6px;">
-        <span class="pulse-dot-green"></span>
-        <span style="font-size: 12px; color: #16a34a; font-weight: 600;">Bảo mật: Lưu hành nội bộ</span>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- STICKY HEADER -->
 <header id="main-header">
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px;">
     <div style="display: flex; align-items: center; gap: 14px;">
-      <div style="width: 42px; height: 42px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative;">
-        <span style="color: var(--gold); font-size: 20px; font-weight: 800; font-family: 'Inter', sans-serif;">A</span>
-        <div style="position: absolute; bottom: -2px; right: -2px; width: 10px; height: 10px; background: var(--teal-bright); border-radius: 50%; border: 2px solid #fff;"></div>
+      <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; position: relative;">
+        <img src="./AILOGY.png" alt="AILOGY Logo" style="width: 150%; height: 150%; object-fit: contain;">
       </div>
       <div>
         <div style="font-size: 16px; font-weight: 800; color: var(--navy); letter-spacing: -0.3px; line-height: 1.1;">AI Parliament OS</div>
@@ -329,15 +760,6 @@
       <a href="#security" class="nav-link">Bảo mật</a>
       <a href="#roadmap" class="nav-link">Lộ trình</a>
     </nav>
-    <div style="display: flex; align-items: center; gap: 14px;">
-      <a href="#" class="btn-primary" id="btn-proposal">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg>
-        TẢI PROPOSAL (PDF)
-      </a>
-      <button id="hamburger" style="display: none; background: none; border: none; cursor: pointer; padding: 4px;" onclick="toggleMenu()">
-        <svg width="24" height="24" fill="none" stroke="#1e293b" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-      </button>
-    </div>
   </div>
   <div id="mobile-menu" style="border-top: 1px solid var(--gray-200); background: #fff; padding: 16px 24px;">
     <div style="display: flex; flex-direction: column; gap: 4px;">
@@ -366,7 +788,7 @@
   <div style="position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(20,184,166,0.08) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none;"></div>
 
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1;">
-    <div style="display: grid; grid-template-columns: 7fr 5fr; gap: 60px; align-items: center;">
+    <div class="stack-column-mobile" style="display: grid; grid-template-columns: 7fr 5fr; gap: 60px; align-items: center;">
       <div>
         <div class="kicker" style="margin-bottom: 20px; color: var(--teal-bright);">Giải pháp chuyển đổi số trọng điểm</div>
         <h1 style="font-size: clamp(36px, 5vw, 58px); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: #fff; margin-bottom: 24px;">
@@ -374,7 +796,7 @@
           <em style="font-style: italic; font-weight: 300; color: rgba(255,255,255,0.75);">Số hóa &amp; Thông minh.</em>
         </h1>
         <p style="font-size: 17px; line-height: 1.75; color: rgba(255,255,255,0.65); margin-bottom: 36px; max-width: 520px;">
-          AI Parliament OS tích hợp AI Copilot chuyên biệt vào từng luồng nghiệp vụ của Quốc hội — từ lập pháp, thẩm tra, biểu quyết đến giám sát — tạo nên một nghị trường số toàn diện, bảo mật và tự chủ.
+          AI Parliament OS tích hợp AI Copilot chuyên biệt vào từng luồng nghiệp vụ của Quốc hội - từ lập pháp, thẩm tra, biểu quyết đến giám sát - tạo nên một nghị trường số toàn diện, bảo mật và tự chủ.
         </p>
         <div style="display: flex; gap: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
           <div>
@@ -452,7 +874,7 @@
         </div>
         <div class="security-badge" style="position: absolute; bottom: -16px; left: -16px;">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Cấp độ bảo mật — LEVEL 4+
+          Cấp độ bảo mật - LEVEL 4+
         </div>
       </div>
     </div>
@@ -462,14 +884,13 @@
 <!-- CONTEXT SECTION -->
 <section id="context" style="background: var(--gray-50); padding: 80px 0;">
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-    <div style="max-width: 720px; margin-bottom: 56px;">
-      <div class="kicker" style="margin-bottom: 16px;">Bối cảnh triển khai</div>
-      <h2 class="section-title" style="margin-bottom: 20px;">Từ kho tài liệu phân tán đến năng lực nghị trường dựa trên dữ liệu.</h2>
+    <div style="max-width: none; margin-bottom: 56px;">
+      <div class="kicker" style="margin-bottom: 20px; color: var(--navy); font-size: clamp(32px, 3vw, 48px); font-weight: 800; letter-spacing: -0.02em;">Bối cảnh</div>
       <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">
-        Quốc hội Việt Nam đang vận hành với hàng chục hệ thống rời rạc, dữ liệu pháp lý phân tán, quy trình nghiệp vụ chưa được số hóa đồng bộ. AI Parliament OS ra đời để giải quyết triệt để bài toán này — tích hợp, thông minh hóa và bảo mật toàn bộ vận hành nghị trường.
+        Quốc hội Việt Nam đang vận hành với hàng chục hệ thống rời rạc, dữ liệu pháp lý phân tán, quy trình nghiệp vụ chưa được số hóa đồng bộ.và chưa hệ thống nào tích hợp, thông minh hóa và bảo mật toàn bộ vận hành nghị trường để giải quyết bài toán này.
       </p>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+    <div class="stack-column-mobile" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
       <div class="metric-tile scroll-reveal">
         <div style="font-size: 13px; font-weight: 700; color: var(--teal); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;">Thách thức 01</div>
         <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Tìm kiếm pháp lý còn chậm</h3>
@@ -492,17 +913,16 @@
 <!-- ORIENTATION SECTION -->
 <section id="orientation" style="padding: 80px 0; background: #fff;">
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-    <div style="max-width: 760px; margin-bottom: 56px;">
-      <div class="kicker" style="margin-bottom: 16px;">Định hướng giải pháp</div>
-      <h2 class="section-title" style="margin-bottom: 20px;">Định hướng vận hành Quốc hội số thông minh.</h2>
+    <div style="max-width: none; margin-bottom: 56px;">
+      <div class="kicker" style="margin-bottom: 20px; color: var(--navy); font-size: clamp(32px, 3vw, 48px); font-weight: 800; letter-spacing: -0.02em;">Định hướng giải pháp</div>
       <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">
-        AI Parliament OS tăng cường năng lực nghiệp vụ của Quốc hội, số hóa các quy trình trọng yếu và tạo nền tảng dữ liệu bảo mật để AI hỗ trợ đúng vai trò, đúng ngữ cảnh.
+        Với tầm nhìn hiện đại hóa toàn diện hoạt động của Quốc hội, chuyển đổi phương thức làm việc truyền thống sang môi trường số thông minh, an toàn và tương tác cao. Nền tảng Quốc hội số thông minh, tích hợp AI Copilot, phục vụ hiện đại hóa hoạt động lập pháp, giám sát, tổ chức kỳ họp, biểu quyết, truyền hình Quốc hội, họp trực tuyến bảo mật và tương tác với cử tri.
       </p>
     </div>
-    <div style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 28px; align-items: stretch;">
+    <div class="stack-column-mobile" style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 28px; align-items: stretch;">
       <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 16px; padding: 34px;">
-        <div class="kicker" style="margin-bottom: 14px; color: var(--teal);">Mục tiêu triển khai</div>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;">
+        <div class="kicker" style="margin-bottom: 14px; color: var(--teal); font-size:large">Mục tiêu triển khai</div>
+        <div class="stack-column-mobile" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;">
           <div class="glass-card scroll-reveal" style="border-radius: 12px; padding: 24px;">
             <div class="gold-line"></div>
             <h3 style="font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Chuẩn hóa vòng đời nghiệp vụ</h3>
@@ -515,7 +935,7 @@
           </div>
           <div class="glass-card scroll-reveal" style="border-radius: 12px; padding: 24px; transition-delay: 0.2s;">
             <div class="gold-line"></div>
-            <h3 style="font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Nhúng AI vào công việc</h3>
+            <h3 style="font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Tích hợp AI</h3>
             <p style="font-size: 14px; color: var(--slate); line-height: 1.65;">AI Copilot hỗ trợ phân tích, tóm tắt, lập biên bản, tra cứu và gợi ý theo từng vai trò nghiệp vụ.</p>
           </div>
           <div class="glass-card scroll-reveal" style="border-radius: 12px; padding: 24px; transition-delay: 0.3s;">
@@ -527,20 +947,20 @@
       </div>
       <div style="background: var(--navy); border-radius: 16px; padding: 34px; color: #fff; position: relative; overflow: hidden;">
         <div style="position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border: 1px solid rgba(20,184,166,0.16); border-radius: 50%; pointer-events: none;"></div>
-        <div class="kicker" style="margin-bottom: 14px; color: var(--teal-bright);">Phạm vi giải pháp</div>
-        <h3 style="font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 22px;">Ba trụ cột vận hành</h3>
+        <div class="kicker" style="margin-bottom: 14px; color: var(--teal-bright);font-size:large">Phạm vi giải pháp</div>
+        <h3 style="font-size: 24px; font-weight: 800; line-height: 1.25; margin-bottom: 22px;">Với các trụ cột vận hành</h3>
         <div style="display: flex; flex-direction: column; gap: 18px;">
           <div style="border-left: 3px solid var(--teal-bright); padding-left: 16px;">
             <h4 style="font-size: 17px; font-weight: 700; margin-bottom: 6px;">Nghiệp vụ nghị trường</h4>
-            <p style="font-size: 14px; color: rgba(255,255,255,0.64); line-height: 1.65;">Lập pháp, thẩm tra, kỳ họp, biểu quyết, giám sát và chất vấn.</p>
+            <p style="font-size: 14px; color: rgba(255,255,255,0.64); line-height: 1.65;">Lập pháp, Thẩm tra, Kỳ họp, Biểu quyết, Giám sát và Chất vấn.</p>
           </div>
           <div style="border-left: 3px solid var(--gold); padding-left: 16px;">
-            <h4 style="font-size: 17px; font-weight: 700; margin-bottom: 6px;">Truyền thông và cử tri</h4>
-            <p style="font-size: 14px; color: rgba(255,255,255,0.64); line-height: 1.65;">Truyền hình Quốc hội, cổng người dân, tra cứu công khai, góp ý và phản hồi.</p>
+            <h4 style="font-size: 17px; font-weight: 700; margin-bottom: 6px;">Truyền thông và Cử tri</h4>
+            <p style="font-size: 14px; color: rgba(255,255,255,0.64); line-height: 1.65;">Truyền hình Quốc hội, Cổng người dân, Tra cứu công khai, Góp ý và Phản hồi.</p>
           </div>
           <div style="border-left: 3px solid #94a3b8; padding-left: 16px;">
             <h4 style="font-size: 17px; font-weight: 700; margin-bottom: 6px;">Nền tảng lõi</h4>
-            <p style="font-size: 14px; color: rgba(255,255,255,0.64); line-height: 1.65;">AI Copilot Layer, nền tảng dữ liệu, bảo mật, phân quyền và tích hợp hệ thống.</p>
+            <p style="font-size: 14px; color: rgba(255,255,255,0.64); line-height: 1.65;">AI Copilot Layer, Nền tảng dữ liệu, Bảo mật, Phân quyền và Tích hợp hệ thống.</p>
           </div>
         </div>
       </div>
@@ -550,184 +970,166 @@
 
 <!-- ARCHITECTURE SECTION -->
 <section id="architecture" style="padding: 80px 0; background: #fff;">
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-    <div style="max-width: 680px; margin-bottom: 56px;">
-      <div class="kicker" style="margin-bottom: 16px;">Kiến trúc vận hành và dữ liệu</div>
-      <h2 class="section-title" style="margin-bottom: 20px;">Kiến trúc vận hành và dữ liệu Quốc hội số.</h2>
-      <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">Tổng thể giải pháp được tổ chức thành các lớp vận hành, AI, quy trình, dữ liệu và bảo mật; dữ liệu pháp lý là nền móng trực tiếp cho năng lực Copilot.</p>
+  <div class="architecture-shell" style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+    <div style="max-width: none; margin-bottom: 56px;">
+      <div class="kicker" style="margin-bottom: 20px; color: var(--navy); font-size: clamp(32px, 3vw, 48px); font-weight: 800; letter-spacing: -0.02em;">Kiến trúc vận hành và dữ liệu</div>
+      <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">
+        AI Parliament OS không tách rời vận hành và dữ liệu. Mỗi hồ sơ, phiên họp, phát biểu, biểu quyết và phản hồi cử tri đều đi qua cùng một kiến trúc lõi: lớp nghiệp vụ tạo dữ liệu, dữ liệu được chuẩn hóa thành tri thức, AI Copilot truy xuất tri thức đó để hỗ trợ lại đúng bước công việc.
+      </p>
     </div>
 
-    <div style="display: grid; grid-template-columns: 2fr 3fr; gap: 32px; align-items: start;">
-      <div style="position: relative;">
-        <div class="flow-line-container" style="position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: rgba(20,184,166,0.1); border-radius: 2px;"></div>
-        <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px;">
-          <button class="arch-btn active" onclick="switchArch(0)" id="arch-btn-0">
-            <span class="layer-num">LAYER 01</span>Cổng người dân &amp; cử tri
-          </button>
-          <button class="arch-btn" onclick="switchArch(1)" id="arch-btn-1">
-            <span class="layer-num">LAYER 02</span>Lớp ứng dụng Quốc hội
-          </button>
-          <button class="arch-btn" onclick="switchArch(2)" id="arch-btn-2">
-            <span class="layer-num">LAYER 03</span>AI Copilot Layer
-          </button>
-          <button class="arch-btn" onclick="switchArch(3)" id="arch-btn-3">
-            <span class="layer-num">LAYER 04</span>Lõi quy trình Quốc hội
-          </button>
-          <button class="arch-btn" onclick="switchArch(4)" id="arch-btn-4">
-            <span class="layer-num">LAYER 05</span>Dữ liệu, tích hợp &amp; bảo mật
-          </button>
+    <div class="arch-map">
+      <div class="arch-panel">
+        <div class="arch-panel-label">Nền tảng nhiều lớp</div>
+        <h3 class="arch-panel-title">Các lớp kiến trúc dùng chung cho mọi phân hệ</h3>
+        <div class="arch-layer-stack">
+          <div class="arch-layer">
+            <div class="arch-layer-num">L1</div>
+            <div>
+              <h4>Kênh tiếp cận</h4>
+              <p>Cổng cử tri, Ứng dụng đại biểu, Hệ thống nội bộ và Điểm truy cập họp trực tuyến.</p>
+            </div>
+          </div>
+          <div class="arch-layer">
+            <div class="arch-layer-num">L2</div>
+            <div>
+              <h4>Ứng dụng nghiệp vụ</h4>
+              <p>Lập pháp, thẩm tra, Kỳ họp, Biểu quyết, Giám sát, Truyền hình và Họp bảo mật.</p>
+            </div>
+          </div>
+          <div class="arch-layer">
+            <div class="arch-layer-num">L3</div>
+            <div>
+              <h4>AI Copilot Layer</h4>
+              <p>Copilot theo vai trò, Truy xuất tri thức pháp lý và Trả gợi ý ngay trong luồng xử lý.</p>
+            </div>
+          </div>
+          <div class="arch-layer">
+            <div class="arch-layer-num">L4</div>
+            <div>
+              <h4>Lõi quy trình Quốc hội</h4>
+              <p>Workflow, Session, Voting, Identity, Rules, Nhiệm vụ và Audit log bất biến.</p>
+            </div>
+          </div>
+          <div class="arch-layer">
+            <div class="arch-layer-num">L5</div>
+            <div>
+              <h4>Dữ liệu và tri thức</h4>
+              <p>Data Lake, Legal Corpus, Vector DB, Legal Knowledge Graph, Data Warehouse, Video Archive và Meeting Archive.</p>
+            </div>
+          </div>
+          <div class="arch-layer">
+            <div class="arch-layer-num">L6</div>
+            <div>
+              <h4>Tích hợp và bảo mật</h4>
+              <p>IAM, API Gateway, Mã hóa, Watermark, Phân quyền, Giám sát và Nhật ký bảo mật.</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div style="background: var(--navy); border-radius: 16px; padding: 40px; min-height: 360px; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border: 1px solid rgba(20,184,166,0.1); border-radius: 50%; pointer-events: none;"></div>
-        <div style="position: absolute; top: 20px; right: 20px; width: 100px; height: 100px; border: 1px solid rgba(20,184,166,0.08); border-radius: 50%; pointer-events: none;"></div>
-
-        <div class="arch-detail active" id="arch-detail-0">
-          <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-bright); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-            <span class="pulse-dot" style="width: 8px; height: 8px;"></span>LAYER 01 — CITIZEN GATEWAY
-          </div>
-          <h3 style="font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.2;">Cổng người dân &amp; cử tri</h3>
-          <p style="font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 24px;">Giao diện tương tác đa kênh cho công dân và cử tri — bao gồm cổng web, ứng dụng di động và kênh tích hợp mạng xã hội. Cho phép tra cứu văn bản pháp luật, theo dõi hoạt động Quốc hội, gửi kiến nghị và nhận phản hồi theo thời gian thực.</p>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Cổng công dân số</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Tra cứu, theo dõi, kiến nghị</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Ứng dụng di động</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">iOS &amp; Android native</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Chatbot AI cử tri</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Hỏi đáp tự động 24/7</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">API tích hợp</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Kết nối hệ thống bên ngoài</div>
+      <div class="arch-panel dark">
+        <div class="arch-panel-label">Luồng vận hành liên kết dữ liệu</div>
+        <h3 class="arch-panel-title">Một yêu cầu nghiệp vụ đi qua toàn bộ kiến trúc</h3>
+        <div class="arch-flow">
+          <div class="arch-step">
+            <div class="arch-step-num">01</div>
+            <div>
+              <h4>Tiếp nhận và định danh</h4>
+              <p>Cử tri, đại biểu hoặc chuyên viên gửi yêu cầu, hồ sơ, phát biểu hoặc nội dung họp qua kênh đã xác thực.</p>
             </div>
           </div>
-        </div>
-
-        <div class="arch-detail" id="arch-detail-1">
-          <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-bright); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-            <span class="pulse-dot" style="width: 8px; height: 8px;"></span>LAYER 02 — APPLICATION LAYER
-          </div>
-          <h3 style="font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.2;">Lớp ứng dụng Quốc hội</h3>
-          <p style="font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 24px;">Bộ ứng dụng nghiệp vụ chuyên biệt cho từng chức năng của Quốc hội — từ quản lý hồ sơ lập pháp, điều hành kỳ họp, đến hệ thống biểu quyết điện tử và truyền hình trực tiếp.</p>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Quản lý lập pháp</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Vòng đời hồ sơ đầy đủ</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Biểu quyết điện tử</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Bảo mật, kiểm toán được</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Truyền hình số</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Live streaming &amp; VOD</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Họp bảo mật</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">E2E encrypted meetings</div>
+          <div class="arch-step">
+            <div class="arch-step-num">02</div>
+            <div>
+              <h4>Điều phối vào phân hệ nghiệp vụ</h4>
+              <p>Workflow chuyển hồ sơ vào đúng phân hệ: lập pháp, ủy ban, kỳ họp, biểu quyết, giám sát hoặc truyền hình.</p>
             </div>
           </div>
-        </div>
-
-        <div class="arch-detail" id="arch-detail-2">
-          <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-bright); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-            <span class="pulse-dot" style="width: 8px; height: 8px;"></span>LAYER 03 — AI INTELLIGENCE
-          </div>
-          <h3 style="font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.2;">AI Copilot Layer</h3>
-          <p style="font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 24px;">Lớp trí tuệ nhân tạo trung tâm — bao gồm 4 AI Copilot chuyên biệt, mô hình ngôn ngữ lớn fine-tuned trên corpus pháp lý Việt Nam, và hệ thống RAG (Retrieval-Augmented Generation) cho độ chính xác cao nhất.</p>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-            <div style="background: rgba(20,184,166,0.1); border: 1px solid rgba(20,184,166,0.25); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">LLM Engine</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Fine-tuned on legal corpus</div>
-            </div>
-            <div style="background: rgba(20,184,166,0.1); border: 1px solid rgba(20,184,166,0.25); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">RAG Pipeline</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Retrieval-augmented gen</div>
-            </div>
-            <div style="background: rgba(20,184,166,0.1); border: 1px solid rgba(20,184,166,0.25); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Analytics AI</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Phân tích xu hướng lập pháp</div>
-            </div>
-            <div style="background: rgba(20,184,166,0.1); border: 1px solid rgba(20,184,166,0.25); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Speech-to-Text</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Tiếng Việt chuyên ngành</div>
+          <div class="arch-step">
+            <div class="arch-step-num">03</div>
+            <div>
+              <h4>Chuẩn hóa thành dữ liệu dùng chung</h4>
+              <p>Văn bản, biên bản, video, ý kiến và kết quả xử lý được gắn metadata, liên kết điều khoản và lưu vết.</p>
             </div>
           </div>
-        </div>
-
-        <div class="arch-detail" id="arch-detail-3">
-          <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-bright); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-            <span class="pulse-dot" style="width: 8px; height: 8px;"></span>LAYER 04 — PROCESS CORE
-          </div>
-          <h3 style="font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.2;">Lõi quy trình Quốc hội</h3>
-          <p style="font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 24px;">Engine quy trình nghiệp vụ (BPM) chuyên biệt cho Quốc hội — quản lý luồng công việc, phân quyền theo vai trò, theo dõi trạng thái hồ sơ và đảm bảo tuân thủ quy trình pháp lý.</p>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">BPM Engine</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Quy trình nghiệp vụ tự động</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Document Engine</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Quản lý hồ sơ &amp; phiên bản</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Notification Hub</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Thông báo đa kênh</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Reporting Engine</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Báo cáo &amp; dashboard</div>
+          <div class="arch-step">
+            <div class="arch-step-num">04</div>
+            <div>
+              <h4>AI Copilot truy xuất tri thức</h4>
+              <p>Copilot dùng Legal Corpus, Vector DB và Legal Knowledge Graph để tóm tắt, so sánh luật, cảnh báo rủi ro và gợi ý xử lý.</p>
             </div>
           </div>
-        </div>
-
-        <div class="arch-detail" id="arch-detail-4">
-          <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-bright); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-            <span class="pulse-dot" style="width: 8px; height: 8px;"></span>LAYER 05 — DATA &amp; SECURITY
-          </div>
-          <h3 style="font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.2;">Dữ liệu, tích hợp &amp; bảo mật</h3>
-          <p style="font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 24px;">Nền tảng dữ liệu và bảo mật — Data Lake pháp lý, Vector Database cho AI, Knowledge Graph, tích hợp hệ thống quốc gia và hạ tầng bảo mật đạt chuẩn TCVN.</p>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Data Lake</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Kho dữ liệu pháp lý tập trung</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Zero-Trust Security</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Xác thực đa yếu tố</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">API Gateway</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Tích hợp hệ thống quốc gia</div>
-            </div>
-            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px;">
-              <div style="font-size: 13px; font-weight: 600; color: var(--teal-bright); margin-bottom: 4px;">Audit Log</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Bất biến, truy vết đầy đủ</div>
+          <div class="arch-step">
+            <div class="arch-step-num">05</div>
+            <div>
+              <h4>Phản hồi lại quy trình</h4>
+              <p>Kết quả AI, báo cáo, nhiệm vụ, biểu quyết và dashboard được đưa ngược về workflow để tiếp tục xử lý hoặc công bố.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Data Architecture -->
-    <div style="margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--gray-200);">
-      <div style="max-width: 720px; margin-bottom: 28px;">
-        <div class="kicker" style="margin-bottom: 14px;">Nền tảng dữ liệu</div>
-        <h3 style="font-size: 26px; font-weight: 800; color: var(--navy); margin-bottom: 12px; line-height: 1.25;">Chuỗi dữ liệu pháp lý cho AI chính xác.</h3>
-        <p style="font-size: 16px; color: var(--slate); line-height: 1.7;">Kiến trúc dữ liệu từ thu thập thô đến tri thức có cấu trúc phục vụ RAG, phân tích và báo cáo.</p>
+    <div class="arch-bridge">
+      <div class="arch-bridge-card">
+        <div class="arch-panel-label">Bước kết nối 01</div>
+        <h4>Thu thập dữ liệu</h4>
+        <p>Mỗi thao tác trong lập pháp, thẩm tra, kỳ họp, biểu quyết, giám sát và cổng cử tri đều sinh ra dữ liệu có ngữ cảnh, chủ thể và trạng thái xử lý.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(10,22,40,0.06);">
-        <div class="data-col" style="padding: 28px 20px;"><div style="font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">Layer 1</div><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Data Lake</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Kho dữ liệu thô: văn bản, hồ sơ, biên bản, video và dữ liệu vận hành.</p></div>
-        <div class="data-col" style="padding: 28px 20px;"><div style="font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">Layer 2</div><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Legal Corpus</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Văn bản pháp luật được chuẩn hóa, phân loại và gắn metadata pháp lý.</p></div>
-        <div class="data-col" style="padding: 28px 20px;"><div style="font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">Layer 3</div><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Vector DB</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Tìm kiếm ngữ nghĩa và truy xuất ngữ cảnh chính xác cho AI Copilot.</p></div>
-        <div class="data-col" style="padding: 28px 20px;"><div style="font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">Layer 4</div><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Knowledge Graph</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Liên kết điều khoản, văn bản, chủ thể, hồ sơ và quan hệ pháp lý.</p></div>
-        <div class="data-col" style="padding: 28px 20px;"><div style="font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">Layer 5</div><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Warehouse</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Dashboard, báo cáo, BI và đo lường hiệu quả vận hành.</p></div>
+      <div class="arch-bridge-card">
+        <div class="arch-panel-label">Bước kết nối 02</div>
+        <h4>Xử lý dữ liệu</h4>
+        <p>Dữ liệu được chuẩn hóa vào corpus, vector hóa và liên kết bằng Legal Knowledge Graph để kết nối quan hệ giữa văn bản, điều khoản, phát biểu và hồ sơ.</p>
+      </div>
+      <div class="arch-bridge-card">
+        <div class="arch-panel-label">Bước kết nối 03</div>
+        <h4>AI trả về quy trình</h4>
+        <p>Copilot không đứng riêng như chatbot, mà trả kết quả về đúng màn hình nghiệp vụ: tóm tắt hồ sơ, gợi ý câu hỏi, cảnh báo xung đột và tạo báo cáo.</p>
+      </div>
+    </div>
+
+    <div class="data-pipeline">
+      <div style="max-width: none; margin-bottom: 24px;">
+        <div class="kicker" style="margin-bottom: 14px; color: var(--navy); font-size: large;">Kiến trúc dữ liệu </div>
+        <p style="font-size: 16px; color: var(--slate); line-height: 1.7;">Dữ liệu không chỉ được lưu trữ, mà đi qua các tầng xử lý liên tục. Từ dữ liệu thô ban đầu, hệ thống tạo corpus pháp lý, khả năng tìm kiếm ngữ nghĩa, đồ thị tri thức, kho lưu trữ video/cuộc họp và dashboard vận hành.</p>
+      </div>
+      <div class="data-pipeline-grid">
+        <div class="data-stage">
+          <div class="data-stage-dot">01</div>
+          <div class="data-stage-card">
+            <h4>Data Lake</h4>
+            <p>Tiếp nhận văn bản, hồ sơ, biên bản, dữ liệu biểu quyết, video và phản hồi cử tri.</p>
+          </div>
+        </div>
+        <div class="data-stage">
+          <div class="data-stage-dot">02</div>
+          <div class="data-stage-card">
+            <h4>Kho Văn bản Pháp luật</h4>
+            <p>ưu trữ Hiến pháp, luật, nghị quyết, pháp lệnh, nghị định liên quan, thông tư liên quan, dự thảo luật, báo cáo giải trình, báo cáo thẩm tra và biên bản phiên họp.</p>
+          </div>
+        </div>
+        <div class="data-stage">
+          <div class="data-stage-dot">03</div>
+          <div class="data-stage-card">
+            <h4>Vector DataBase</h4>
+            <p>Cho phép AI truy xuất ngữ cảnh, tìm kiếm ngữ nghĩa và đối chiếu nội dung tương đồng. Phục vụ tìm kiếm ngữ nghĩa, hỏi đáp AI, tra cứu nội dung tương tự, hỗ trợ soạn thảo, tóm tắt và phân tích tài liệu.</p>
+          </div>
+        </div>
+        <div class="data-stage">
+          <div class="data-stage-dot">04</div>
+          <div class="data-stage-card">
+            <h4>Legal Knowledge Graph</h4>
+            <p>Kết nối các thực thể pháp lý và nghị trường như văn bản pháp luật, dự luật, điều khoản, sửa đổi, ủy ban, đại biểu, phiên họp, biểu quyết, ý kiến cử tri, video phiên họp và báo cáo thẩm tra.</p>
+          </div>
+        </div>
+        <div class="data-stage">
+          <div class="data-stage-dot">05</div>
+          <div class="data-stage-card">
+            <h4>Data Warehouse</h4>
+            <p>Phục vụ báo cáo quản trị, thống kê hoạt động, đánh giá hiệu quả vận hành và theo dõi chỉ số sử dụng hệ thống.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -742,58 +1144,87 @@
     <circle cx="250" cy="250" r="100" stroke="#14B8A6" stroke-width="1"/>
   </svg>
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1;">
-    <div style="max-width: 720px; margin-bottom: 56px;">
-      <div class="kicker" style="margin-bottom: 16px; color: var(--teal-bright);">AI Copilot Layer</div>
-      <h2 class="section-title section-title-white" style="margin-bottom: 20px;">Trợ lý AI chuyên biệt cho từng vai trò, từng luồng công việc.</h2>
+    <div style="max-width: none; margin-bottom: 56px;">
+      <div class="kicker" style="margin-bottom: 20px; color: var(--teal-bright); font-size: clamp(32px, 3vw, 48px); font-weight: 800; letter-spacing: -0.02em;">Lớp AI Copilot</div>
       <p style="font-size: 17px; color: rgba(255,255,255,0.6); line-height: 1.75;">
-        Không phải một AI đa năng chung chung — mỗi Copilot được fine-tune trên corpus pháp lý Việt Nam và nghiệp vụ Quốc hội, đảm bảo độ chính xác và phù hợp ngữ cảnh cao nhất.
+        Triết lý thiết kế AI Parliament OS từ chối tiếp cận theo hướng một Chatbot đa năng chung chung từ đó hệ thống được cấu trúc thành một mạng lưới các AI Copilot chuyên biệt, nơi mỗi trợ lý ảo là một "chuyên gia" được tối ưu hóa sâu cho từng phòng ban và nghiệp vụ cụ thể của Quốc hội.
       </p>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px;">
+    <div class="stack-column-mobile" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px;">
       <div class="glass-dark" style="border-radius: 16px; padding: 28px 24px;">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
           <span class="pulse-dot"></span>
-          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Legislative</span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Lập Pháp</span>
         </div>
-        <h3 style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px;">Legislative Copilot</h3>
-        <p style="font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65;">Hỗ trợ đại biểu và chuyên viên lập pháp — phân tích hồ sơ, đối chiếu văn bản, phát hiện mâu thuẫn pháp lý và gợi ý cải tiến điều khoản.</p>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65;">Soạn thảo, chuẩn hóa ngôn ngữ, so sánh phiên bản, phát hiện lỗi tham chiếu và tạo bản tóm tắt dự luật.</p>
       </div>
+
       <div class="glass-dark" style="border-radius: 16px; padding: 28px 24px;">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
           <span class="pulse-dot" style="animation-delay: 0.5s;"></span>
-          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Committee</span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Ủy ban</span>
         </div>
-        <h3 style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px;">Committee Copilot</h3>
-        <p style="font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65;">Tự động hóa quy trình thẩm tra — tổng hợp ý kiến đa chiều, phân tích tác động chính sách và soạn thảo báo cáo thẩm tra.</p>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65;">Tóm tắt hồ sơ thẩm tra, trích xuất vấn đề trọng tâm, gợi ý câu hỏi và tạo bản nháp báo cáo thẩm tra.</p>
       </div>
+
       <div class="glass-dark" style="border-radius: 16px; padding: 28px 24px;">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
           <span class="pulse-dot" style="animation-delay: 1s;"></span>
-          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Session</span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Phiên họp</span>
         </div>
-        <h3 style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px;">Session Copilot</h3>
-        <p style="font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65;">Hỗ trợ ban thư ký kỳ họp — ghi biên bản tự động, tóm tắt phát biểu, quản lý thời gian và điều phối tài liệu thời gian thực.</p>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65;">Chuyển giọng nói thành văn bản, tóm tắt phiên họp, trích xuất ý kiến đại biểu, phân nhóm chủ đề và lập biên bản.</p>
       </div>
+
       <div class="glass-dark" style="border-radius: 16px; padding: 28px 24px;">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
           <span class="pulse-dot" style="animation-delay: 1.5s;"></span>
-          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Citizen</span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Biểu quyết</span>
         </div>
-        <h3 style="font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px;">Citizen Copilot</h3>
-        <p style="font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65;">Cầu nối giữa Quốc hội và công dân — giải đáp thắc mắc pháp lý, hướng dẫn gửi kiến nghị và cập nhật tiến độ xử lý 24/7.</p>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65;">Nhắc quy trình biểu quyết, tóm tắt nội dung được biểu quyết, tra cứu lịch sử biểu quyết và tạo báo cáo sau biểu quyết.</p>
+      </div>
+
+      <div class="glass-dark" style="border-radius: 16px; padding: 28px 24px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+          <span class="pulse-dot" style="animation-delay: 2s;"></span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Theo dõi</span>
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65;">Tóm tắt báo cáo giám sát, trích xuất cam kết, theo dõi hạn xử lý và tạo báo cáo tổng hợp.</p>
+      </div>
+
+      <div class="glass-dark" style="border-radius: 16px; padding: 28px 24px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+          <span class="pulse-dot" style="animation-delay: 2.5s;"></span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Quốc hội TV</span>
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65;">Tạo phụ đề tự động, highlight video, gắn metadata, tìm kiếm video và liên kết phát biểu với dự luật.</p>
+      </div>
+
+      <div class="glass-dark" style="border-radius: 16px; padding: 28px 24px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+          <span class="pulse-dot" style="animation-delay: 3s;"></span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Bảo mật cuộc họp</span>
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65;">Viết biên bản họp, trích xuất kết luận, trích xuất nhiệm vụ và tổng hợp ý kiến trong cuộc họp bảo mật.</p>
+      </div>
+            <div class="glass-dark" style="border-radius: 16px; padding: 28px 24px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+          <span class="pulse-dot" style="animation-delay: 1.5s;"></span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; text-transform: uppercase;">Người dân</span>
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65;">Hỗ trợ người dân hiểu luật, tóm tắt dự luật, hỏi đáp phổ biến và hướng dẫn góp ý.</p>
       </div>
     </div>
 
     <div class="copilot-demo">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(20,184,166,0.2);">
         <span class="pulse-dot"></span>
-        <span style="font-size: 12px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px;">AI COPILOT IN ACTION — LEGISLATIVE COPILOT</span>
-        <span style="margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.3);">LIVE SESSION</span>
+        <span style="font-size: 12px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px;">AI COPILOT LẬP PHÁP</span>
+        <span style="margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.3);">Phiên họp trực tiếp</span>
       </div>
       <div style="display: flex; flex-direction: column; gap: 14px;">
         <div style="display: flex; gap: 12px; align-items: flex-start;">
-          <span style="color: var(--teal-bright); font-size: 13px; font-weight: 700; white-space: nowrap; min-width: 200px;">Legislative Copilot &gt;</span>
+          <span style="color: var(--teal-bright); font-size: 13px; font-weight: 700; white-space: nowrap; min-width: 200px;">Copilot Lập Pháp &gt;</span>
           <span id="typing-text" style="color: rgba(255,255,255,0.85); font-size: 13px; line-height: 1.6;"></span>
         </div>
         <div style="display: flex; gap: 12px; align-items: flex-start; opacity: 0.6;">
@@ -801,7 +1232,7 @@
           <span style="color: rgba(255,255,255,0.6); font-size: 13px;">Cho tôi xem chi tiết điều khoản nào cần đối chiếu?</span>
         </div>
         <div style="display: flex; gap: 12px; align-items: flex-start;">
-          <span style="color: var(--teal-bright); font-size: 13px; font-weight: 700; white-space: nowrap; min-width: 200px;">Legislative Copilot &gt;</span>
+          <span style="color: var(--teal-bright); font-size: 13px; font-weight: 700; white-space: nowrap; min-width: 200px;">Copilot Lập Pháp &gt;</span>
           <span style="color: rgba(255,255,255,0.85); font-size: 13px; line-height: 1.6;">Điều 15, Điều 23 và Điều 41 của dự thảo có thể xung đột với Điều 8 Luật Ban hành VBQPPL 2015 (sửa đổi 2020). Đề xuất bổ sung đánh giá tác động pháp lý và tham vấn Bộ Tư pháp trước khi trình Ủy ban Pháp luật. <span style="color: var(--teal-bright);">[Xem chi tiết →]</span></span>
         </div>
       </div>
@@ -812,83 +1243,399 @@
 <!-- MODULES SECTION -->
 <section id="modules" style="background: var(--gray-50); padding: 80px 0;">
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-    <div style="max-width: 760px; margin-bottom: 48px;">
-      <div class="kicker" style="margin-bottom: 16px;">Phân hệ chức năng</div>
-      <h2 class="section-title" style="margin-bottom: 20px;">Hệ sinh thái phân hệ theo luồng nghiệp vụ Quốc hội.</h2>
-      <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">Các phân hệ được nhóm theo logic vận hành: xử lý nghị trường nội bộ, truyền thông - cử tri, và nền tảng làm việc bảo mật.</p>
+    <div style="max-width: none; margin-bottom: 48px;">
+      <div class="kicker" style="margin-bottom: 20px; color: var(--navy); font-size: clamp(32px, 3vw, 48px); font-weight: 800; letter-spacing: -0.02em;">Phân hệ chức năng</div>
+      <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">Các phân hệ lõi tạo nên Quốc hội số: từ Lập pháp, Thẩm tra, Kỳ họp, Biểu quyết, Giám sát, Truyền hình, Họp trực tuyến đến Cổng cử tri. Mỗi hệ thống được thiết kế riêng biệt nhưng tích hợp chặt chẽ qua dữ liệu pháp lý chung.</p>
     </div>
-    <div style="display: flex; flex-direction: column; gap: 34px;">
-      <div>
-        <h3 style="font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 18px;">1. Quy trình lập pháp và nghị trường</h3>
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;">
-          <div class="module-card scroll-reveal"><<h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Lập pháp</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Quản lý hồ sơ dự luật, phiên bản, điều khoản, chỉnh lý và lịch sử xử lý.</p></div>
-          <div class="module-card scroll-reveal" style="transition-delay: 0.05s;"><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Thẩm tra ủy ban</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Tổng hợp ý kiến, phát hiện vấn đề, hỗ trợ biên bản và báo cáo thẩm tra.</p></div>
-          <div class="module-card scroll-reveal" style="transition-delay: 0.1s;"><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Kỳ họp &amp; phiên họp</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Quản lý chương trình, phát biểu, tài liệu, ghi âm, ghi hình và biên bản.</p></div>
-          <div class="module-card scroll-reveal" style="transition-delay: 0.15s;"><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Biểu quyết điện tử</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Xác thực đại biểu, khởi tạo phiên, ghi nhận phiếu, tính kết quả và lưu vết.</p></div>
-          <div class="module-card scroll-reveal" style="transition-delay: 0.2s;"><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Giám sát &amp; chất vấn</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Theo dõi chuyên đề, trả lời chất vấn, cam kết, kiến nghị và cảnh báo quá hạn.</p></div>
-        </div>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-        <div>
-          <h3 style="font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 18px;">2. Truyền thông và tương tác cử tri</h3>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;">
-            <div class="module-card scroll-reveal"><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Truyền hình Quốc hội</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Tín hiệu đa camera, live, VOD, metadata, phụ đề, timeline và tìm kiếm video.</p></div>
-            <div class="module-card scroll-reveal" style="transition-delay: 0.05s;"><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Cổng người dân &amp; cử tri</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Tra cứu dự luật, văn bản, kết quả công khai, góp ý và theo dõi phản hồi.</p></div>
+<div class="wrap">
+  <div class="group">
+    <div class="group-row">
+      <div class="group-label">Lõi lập pháp</div>
+    </div>
+
+    <div class="module-stack">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#E1F5EE;color:#0F6E56"><i class="ti ti-file-text" aria-hidden="true"></i></div>
+          <div class="card-meta">
+            <div class="card-tag" style="color:#0F6E56">Hệ thống lập pháp</div>
+            <div class="card-title">Quản lý toàn vòng đời dự luật</div>
           </div>
         </div>
-        <div>
-          <h3 style="font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 18px;">3. Nền tảng làm việc bảo mật</h3>
-          <div style="display: grid; grid-template-columns: 1fr; gap: 18px;">
-            <div class="module-card scroll-reveal"><h4 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Họp trực tuyến bảo mật nội bộ</h4><p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Phòng họp tự chủ, xác thực, phân quyền, watermark, ghi âm ghi hình, biên bản và lưu trữ theo cấp độ bảo mật.</p></div>
+        <p class="card-desc">Từ khởi tạo, soạn thảo, lấy ý kiến, chỉnh lý, thẩm tra, trình kỳ họp, biểu quyết đến công bố.</p>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div class="col">
+            <div class="col-label"><i class="ti ti-list-check"></i> Chức năng lõi</div>
+            <ul class="feat-list">
+              <li>Quản lý hồ sơ, điều khoản dự luật</li>
+              <li>Quản lý phiên bản & so sánh dự thảo</li>
+              <li>Theo dõi sửa đổi, tiếp thu, chỉnh lý</li>
+              <li>Tra cứu văn bản liên quan</li>
+              <li>Báo cáo giải trình & lịch sử xử lý</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label" style="color:#534AB7"><i class="ti ti-sparkles"></i> AI copilot</div>
+            <ul class="feat-list ai-list">
+              <li>Tóm tắt & chuẩn hóa thuật ngữ pháp lý</li>
+              <li>Phát hiện điều khoản trùng lặp & tham chiếu sai</li>
+              <li>So sánh với văn bản hiện hành</li>
+              <li>Gợi ý cấu trúc & văn phong pháp lý</li>
+              <li>Tạo bản tóm tắt cho đại biểu</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#E1F5EE;color:#0F6E56"><i class="ti ti-users" aria-hidden="true"></i></div>
+          <div class="card-meta">
+            <div class="card-tag" style="color:#0F6E56">Hệ thống thẩm tra ủy ban</div>
+            <div class="card-title">Tự động hóa quá trình thẩm tra</div>
+          </div>
+        </div>
+        <p class="card-desc">Phục vụ các ủy ban xem xét dự án luật, nghị quyết, báo cáo và chuyên đề với tổng hợp ý kiến toàn diện.</p>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div class="col">
+            <div class="col-label"><i class="ti ti-list-check"></i> Chức năng lõi</div>
+            <ul class="feat-list">
+              <li>Quản lý ý kiến bộ ngành & chuyên gia</li>
+              <li>Lịch họp ủy ban & biên bản</li>
+              <li>Theo dõi nhiệm vụ sau họp</li>
+              <li>Báo cáo thẩm tra bản nháp</li>
+              <li>Lưu trữ lịch sử thẩm tra</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label" style="color:#534AB7"><i class="ti ti-sparkles"></i> AI copilot</div>
+            <ul class="feat-list ai-list">
+              <li>Trích xuất vấn đề cần thẩm tra</li>
+              <li>Phát hiện điểm chưa rõ trong dự thảo</li>
+              <li>Gợi ý câu hỏi cho cơ quan trình</li>
+              <li>Tổng hợp & nhóm ý kiến</li>
+              <li>Tạo bản nháp báo cáo thẩm tra</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-row">
+      <div class="group-label">Kỳ họp & biểu quyết</div>
+    </div>
+
+    <div class="module-stack">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#EEEDFE;color:#534AB7"><i class="ti ti-calendar-event" aria-hidden="true"></i></div>
+          <div class="card-meta">
+            <div class="card-tag" style="color:#534AB7">Hệ thống kỳ họp & phiên họp</div>
+            <div class="card-title">Quản lý phiên họp thông minh</div>
+          </div>
+        </div>
+        <p class="card-desc">Lập chương trình, điều phối nội dung, quản lý phát biểu, ghi âm, chuyển giọng nói thành văn bản và lập hồ sơ phiên họp.</p>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div class="col">
+            <div class="col-label"><i class="ti ti-list-check"></i> Chức năng lõi</div>
+            <ul class="feat-list">
+              <li>Quản lý chương trình kỳ, lịch phiên họp</li>
+              <li>Danh sách phát biểu & chất vấn</li>
+              <li>Ghi âm, ghi hình phiên họp</li>
+              <li>Chuyển giọng nói thành văn bản tự động</li>
+              <li>Lập biên bản & hồ sơ phiên họp</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label" style="color:#534AB7"><i class="ti ti-sparkles"></i> AI copilot</div>
+            <ul class="feat-list ai-list">
+              <li>Tóm tắt phiên họp & timeline nội dung</li>
+              <li>Nhận diện & phân nhóm chủ đề thảo luận</li>
+              <li>Trích xuất ý kiến đại biểu</li>
+              <li>Hỗ trợ lập biên bản tự động</li>
+              <li>Gợi ý nội dung tổng hợp sau phiên</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:2px solid #D85A30">
+        <div class="card-header">
+          <div class="card-icon" style="background:#FAECE7;color:#993C1D"><i class="ti ti-check-box" aria-hidden="true"></i></div>
+          <div class="card-meta">
+            <div class="card-tag" style="color:#993C1D">Hệ thống biểu quyết điện tử</div>
+            <div class="card-title">Biểu quyết bảo mật & minh bạch</div>
+          </div>
+        </div>
+        <p class="card-desc">Tổ chức biểu quyết tại phiên họp, bảo đảm chính xác, bảo mật, có lưu vết và khả năng kiểm tra sau biểu quyết.</p>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div class="col">
+            <div class="col-label"><i class="ti ti-list-check"></i> Chức năng lõi</div>
+            <ul class="feat-list">
+              <li>Xác thực đại biểu & kiểm tra điều kiện</li>
+              <li>Khởi tạo & ghi nhận phiếu biểu quyết</li>
+              <li>Tính kết quả & công bố theo quy định</li>
+              <li>Nhật ký & tra cứu lịch sử</li>
+              <li>Phương án dự phòng thủ công</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label" style="color:#993C1D"><i class="ti ti-shield-lock"></i> Yêu cầu bảo mật</div>
+            <ul class="feat-list security-list">
+              <li>Xác thực đa yếu tố bắt buộc</li>
+              <li>Mã hóa dữ liệu biểu quyết</li>
+              <li>Chống sửa đổi, lưu vết đầy đủ</li>
+              <li>Phân quyền công bố kết quả</li>
+              <li>Cơ chế kiểm tra sau biểu quyết</li>
+              <li>AI không thay đổi phiếu hoặc kết quả</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-row">
+      <div class="group-label">Giám sát & truyền thông</div>
+    </div>
+
+    <div class="module-stack">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#E1F5EE;color:#0F6E56"><i class="ti ti-eye" aria-hidden="true"></i></div>
+          <div class="card-meta">
+            <div class="card-tag" style="color:#0F6E56">Hệ thống giám sát & chất vấn</div>
+            <div class="card-title">Theo dõi cam kết thực hiện</div>
+          </div>
+        </div>
+        <p class="card-desc">Quản lý chuyên đề giám sát, phiên chất vấn, kiến nghị và theo dõi cam kết của các cơ quan qua nhiều kỳ.</p>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div class="col">
+            <div class="col-label"><i class="ti ti-list-check"></i> Chức năng lõi</div>
+            <ul class="feat-list">
+              <li>Quản lý chuyên đề giám sát</li>
+              <li>Phiên chất vấn & theo dõi trả lời</li>
+              <li>Theo dõi cam kết bộ ngành</li>
+              <li>Tổng hợp báo cáo thực hiện</li>
+              <li>Cảnh báo nhiệm vụ quá hạn</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label" style="color:#534AB7"><i class="ti ti-sparkles"></i> AI copilot</div>
+            <ul class="feat-list ai-list">
+              <li>Trích xuất cam kết & hạn xử lý</li>
+              <li>Phát hiện trả lời chưa đầy đủ</li>
+              <li>So sánh cam kết qua các kỳ</li>
+              <li>Tạo báo cáo tổng hợp tự động</li>
+              <li>Gợi ý nội dung cần làm rõ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#E1F5EE;color:#0F6E56"><i class="ti ti-device-tv" aria-hidden="true"></i></div>
+          <div class="card-meta">
+            <div class="card-tag" style="color:#0F6E56">Hệ thống truyền hình Quốc hội</div>
+            <div class="card-title">Phát sóng & lưu trữ thông minh</div>
+          </div>
+        </div>
+        <p class="card-desc">Ghi hình, phát sóng, lưu trữ, biên tập, tạo phụ đề và tra cứu thông minh với thư viện video phiên họp.</p>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div class="col">
+            <div class="col-label"><i class="ti ti-list-check"></i> Chức năng lõi</div>
+            <ul class="feat-list">
+              <li>Tiếp nhận tín hiệu đa camera, đa điểm cầu</li>
+              <li>Ghi hình, phát sóng trực tiếp & phát lại</li>
+              <li>Thư viện video, metadata, phụ đề, timeline</li>
+              <li>Tìm kiếm, cắt trích đoạn theo nội dung</li>
+              <li>Công khai theo nhiều mức phân quyền</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label" style="color:#534AB7"><i class="ti ti-sparkles"></i> AI copilot</div>
+            <ul class="feat-list ai-list">
+              <li>Nhận diện người phát biểu & speech-to-text</li>
+              <li>Tách phiên họp & tạo highlight</li>
+              <li>Tóm tắt nội dung & gợi ý tiêu đề</li>
+              <li>Liên kết phát biểu với dự luật</li>
+              <li>Hỗ trợ tạo bản tin ngắn</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-row">
+      <div class="group-label">Kết nối & tương tác</div>
+    </div>
+
+    <div class="module-stack">
+
+      <div class="card" style="border-left:2px solid #D85A30">
+        <div class="card-header">
+          <div class="card-icon" style="background:#FAECE7;color:#993C1D"><i class="ti ti-video" aria-hidden="true"></i></div>
+          <div class="card-meta">
+            <div class="card-tag" style="color:#993C1D">Hệ thống họp trực tuyến bảo mật</div>
+            <div class="card-title">Nền tảng họp do Quốc hội kiểm soát</div>
+          </div>
+        </div>
+        <p class="card-desc">Triển khai trên hạ tầng do Quốc hội tự quản lý hoặc do Nhà nước kiểm soát, không sử dụng nền tảng thương mại bên thứ ba.</p>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div class="col">
+            <div class="col-label"><i class="ti ti-list-check"></i> Chức năng lõi</div>
+            <ul class="feat-list">
+              <li>Phòng họp bảo mật, phòng chờ, xác thực tham dự</li>
+              <li>Quản lý quyền phát biểu, micro, camera</li>
+              <li>Chia sẻ màn hình & tài liệu nội bộ</li>
+              <li>Ghi âm, ghi hình & biên bản họp</li>
+              <li>Kết nối nhiều điểm cầu & biểu quyết nội bộ</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label" style="color:#534AB7"><i class="ti ti-sparkles"></i> AI + bảo mật</div>
+            <ul class="feat-list ai-list">
+              <li>Speech-to-text real-time & tóm tắt</li>
+              <li>Trích xuất kết luận & nhiệm vụ được giao</li>
+              <li>Kiểm soát người tham dự và quyền ghi hình</li>
+              <li>Mã hóa âm thanh, hình ảnh, tài liệu</li>
+              <li>Watermark, nhật ký tham dự, xem và tải tài liệu</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#EEEDFE;color:#534AB7"><i class="ti ti-world" aria-hidden="true"></i></div>
+          <div class="card-meta">
+            <div class="card-tag" style="color:#534AB7">Cổng người dân & cử tri</div>
+            <div class="card-title">Tương tác dân chủ số với cử tri</div>
+          </div>
+        </div>
+        <p class="card-desc">Giúp người dân tra cứu pháp luật, theo dõi hoạt động Quốc hội và gửi góp ý đến cơ quan chủ trì một cách dễ dàng.</p>
+        <div class="divider"></div>
+        <div class="two-col">
+          <div class="col">
+            <div class="col-label"><i class="ti ti-list-check"></i> Chức năng lõi</div>
+            <ul class="feat-list">
+              <li>Tra cứu dự luật & văn bản pháp luật</li>
+              <li>Theo dõi tiến độ & kết quả biểu quyết</li>
+              <li>Gửi ý kiến & theo dõi phản hồi</li>
+              <li>Xem phiên họp công khai & tra cứu video</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="col-label" style="color:#534AB7"><i class="ti ti-sparkles"></i> AI copilot</div>
+            <ul class="feat-list ai-list">
+              <li>Giải thích luật bằng ngôn ngữ dễ hiểu</li>
+              <li>Tóm tắt dự luật cho người dân</li>
+              <li>Trả lời câu hỏi thường gặp tự động</li>
+              <li>Phân loại & chuyển ý kiến tới đơn vị phụ trách</li>
+              <li>Hướng dẫn góp ý đúng nội dung</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
 </section>
 
 <!-- SECURITY SECTION -->
 <section id="security" style="background: var(--gray-50); padding: 80px 0;">
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-    <div style="max-width: 680px; margin-bottom: 56px;">
-      <div class="kicker" style="margin-bottom: 16px;">Bảo mật và kiểm soát</div>
-      <h2 class="section-title" style="margin-bottom: 20px;">Hạ tầng tự chủ — bảo mật cấp nhà nước, kiểm soát hoàn toàn.</h2>
+    <div style="max-width: none; margin-bottom: 56px;">
+      <div class="kicker" style="margin-bottom: 20px; color: var(--navy); font-size: clamp(32px, 3vw, 48px); font-weight: 800; letter-spacing: -0.02em;">Bảo mật và kiểm soát</div>
       <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">
-        Mọi thành phần của AI Parliament OS được thiết kế để triển khai on-premise hoặc private cloud chủ quyền Việt Nam — không có dữ liệu nào rời khỏi hạ tầng quốc gia.
+        Bảo mật được đặt là nguyên tắc thiết kế bắt buộc, bao gồm Định danh, Phân quyền, Bảo vệ tài liệu, Bảo mật biểu quyết, Kiểm soát họp trực tuyến và Nhật ký hệ thống.
       </p>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+    <div class="stack-column-mobile" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
       <div class="glass-card scroll-reveal" style="border-radius: 16px; padding: 36px 28px;">
         <div class="sec-icon"><span>IAM</span></div>
         <div class="gold-line"></div>
-        <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Định danh và phân quyền</h3>
-        <p style="font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">Hệ thống IAM tích hợp với CCCD/VNeID quốc gia — xác thực đa yếu tố, phân quyền theo vai trò (RBAC) và kiểm soát truy cập dựa trên ngữ cảnh.</p>
+        <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Định danh và xác thực</h3>
+        <p style="font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">Quản lý tài khoản đại biểu, cán bộ, chuyên viên, thư ký, quản trị viên, người dân và khách mời có kiểm soát.</p>
         <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px;">
-          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Tích hợp CCCD/VNeID</li>
-          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> MFA bắt buộc cho tài khoản nhạy cảm</li>
-          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> RBAC theo cấp độ phân loại</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Quản lý tài khoản theo nhóm người dùng</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Xác thực phù hợp với vai trò truy cập</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Khách mời được kiểm soát trước khi tham gia</li>
         </ul>
       </div>
       <div class="glass-card scroll-reveal" style="border-radius: 16px; padding: 36px 28px; transition-delay: 0.1s;">
-        <div class="sec-icon"><span>ENC</span></div>
+        <div class="sec-icon"><span>ROLE</span></div>
         <div class="gold-line"></div>
-        <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Mã hóa và watermark</h3>
-        <p style="font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">Mã hóa đầu cuối cho mọi dữ liệu lưu trữ và truyền tải — sử dụng thuật toán đạt chuẩn TCVN. Watermark số cho tài liệu mật để truy vết rò rỉ.</p>
+        <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Phân quyền theo vai trò</h3>
+        <p style="font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">Người dùng chỉ truy cập nội dung phù hợp với vai trò, đơn vị, cấp độ tài liệu và trạng thái hồ sơ.</p>
         <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px;">
-          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> AES-256 / TLS 1.3</li>
-          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Digital watermark tài liệu</li>
-          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> DLP (Data Loss Prevention)</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Phân quyền theo vai trò và đơn vị</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Kiểm soát theo cấp độ tài liệu</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Ràng buộc theo trạng thái hồ sơ</li>
         </ul>
       </div>
       <div class="glass-card scroll-reveal" style="border-radius: 16px; padding: 36px 28px; transition-delay: 0.2s;">
+        <div class="sec-icon"><span>DOC</span></div>
+        <div class="gold-line"></div>
+        <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Bảo mật tài liệu</h3>
+        <p style="font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">Tài liệu được kiểm soát quyền xem, tải, in, chia sẻ, thu hồi quyền truy cập; hỗ trợ mã hóa và watermark theo yêu cầu bảo mật.</p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px;">
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Kiểm soát quyền xem, tải, in, chia sẻ</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Thu hồi quyền truy cập khi cần</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Mã hóa và watermark tài liệu</li>
+        </ul>
+      </div>
+      <div class="glass-card scroll-reveal" style="border-radius: 16px; padding: 36px 28px; transition-delay: 0.3s;">
+        <div class="sec-icon"><span>VOTE</span></div>
+        <div class="gold-line"></div>
+        <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Bảo mật biểu quyết</h3>
+        <p style="font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">Quy trình biểu quyết có xác thực nhiều lớp, mã hóa dữ liệu, lưu vết, kiểm tra tính toàn vẹn và phương án dự phòng.</p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px;">
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Kiểm tra tính toàn vẹn dữ liệu</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Lưu vết đầy đủ sau biểu quyết</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Phương án dự phòng khi cần</li>
+        </ul>
+      </div>
+      <div class="glass-card scroll-reveal" style="border-radius: 16px; padding: 36px 28px; transition-delay: 0.4s;">
+        <div class="sec-icon"><span>MEET</span></div>
+        <div class="gold-line"></div>
+        <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Bảo mật họp trực tuyến</h3>
+        <p style="font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">Nền tảng họp nội bộ không dùng bên thứ ba, kiểm soát người tham dự, tài liệu chia sẻ, quyền ghi âm, ghi hình và watermark.</p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px;">
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Kiểm soát người tham dự và phòng chờ</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Kiểm soát chia sẻ, ghi âm, ghi hình</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Lưu trữ theo cấp độ bảo mật</li>
+        </ul>
+      </div>
+      <div class="glass-card scroll-reveal" style="border-radius: 16px; padding: 36px 28px; transition-delay: 0.5s;">
         <div class="sec-icon"><span>LOG</span></div>
         <div class="gold-line"></div>
-        <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Audit log bất biến</h3>
-        <p style="font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">Mọi hành động trong hệ thống đều được ghi nhận vào audit log bất biến — không thể xóa hay sửa đổi, đảm bảo truy vết và trách nhiệm giải trình đầy đủ.</p>
+        <h3 style="font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Nhật ký hệ thống</h3>
+        <p style="font-size: 15px; color: var(--slate); line-height: 1.7; margin-bottom: 20px;">Ghi nhận truy cập, chỉnh sửa, phê duyệt, hỗ trợ của AI, người tham gia họp và hoạt động với tài liệu họp.</p>
         <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px;">
-          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Immutable audit trail</li>
-          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Blockchain-anchored logs</li>
-          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> SIEM tích hợp</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Nhật ký truy cập và chỉnh sửa</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Nhật ký AI hỗ trợ và người phê duyệt</li>
+          <li style="font-size: 13px; color: var(--slate); display: flex; gap: 8px;"><span style="color: var(--teal-bright);">→</span> Nhật ký họp và tài liệu họp</li>
         </ul>
       </div>
     </div>
@@ -899,45 +1646,38 @@
 <section id="roadmap" style="background: var(--navy-surface); padding: 80px 0; position: relative; overflow: hidden;">
   <div class="dot-grid" style="position: absolute; inset: 0; pointer-events: none; opacity: 0.5;"></div>
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1;">
-    <div style="max-width: 680px; margin-bottom: 56px;">
-      <div class="kicker" style="margin-bottom: 16px; color: var(--teal-bright);">Lộ trình triển khai</div>
-      <h2 class="section-title section-title-white" style="margin-bottom: 20px;">5 giai đoạn — từ thí điểm đến Quốc hội số hoàn chỉnh.</h2>
+    <div style="max-width: none; margin-bottom: 56px;">
+      <div class="kicker" style="margin-bottom: 20px; color: var(--teal-bright); font-size: clamp(32px, 3vw, 48px); font-weight: 800; letter-spacing: -0.02em;">Lộ trình triển khai</div>
       <p style="font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.75;">Lộ trình triển khai thực tế, ưu tiên giá trị sớm và giảm thiểu rủi ro qua từng giai đoạn.</p>
     </div>
     <div style="position: relative; margin-bottom: 40px;">
       <div style="position: absolute; top: 20px; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.1); z-index: 0;"></div>
-      <div style="position: absolute; top: 20px; left: 0; width: 20%; height: 2px; background: var(--teal-bright); z-index: 1;"></div>
+      <div style="position: absolute; top: 20px; left: 0; width: 25%; height: 2px; background: var(--teal-bright); z-index: 1;"></div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;">
+    <div class="stack-column-mobile" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
       <div class="roadmap-card current">
         <div style="background: var(--teal); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 16px;">0-6 THÁNG</div>
         <div style="width: 8px; height: 8px; background: var(--teal-bright); border-radius: 50%; margin-bottom: 12px; box-shadow: 0 0 8px var(--teal-bright);"></div>
-        <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;">Khởi động &amp; Nền tảng</h3>
-        <p style="font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;">Khảo sát hiện trạng, thiết kế kiến trúc tổng thể, triển khai hạ tầng core và module Lập pháp thí điểm.</p>
+        <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;">Nền tảng lõi</h3>
+        <p style="font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;">Khảo sát nghiệp vụ, thiết kế kiến trúc, quản lý tài liệu, kỳ họp, biểu quyết MVP, speech-to-text, tóm tắt phiên họp, nhật ký và lưu trữ video cơ bản.</p>
       </div>
       <div class="roadmap-card">
         <div style="background: rgba(20,184,166,0.2); color: var(--teal-bright); font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 16px;">6-12 THÁNG</div>
         <div style="width: 8px; height: 8px; background: rgba(255,255,255,0.2); border-radius: 50%; margin-bottom: 12px;"></div>
-        <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;">Mở rộng nghiệp vụ</h3>
-        <p style="font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;">Triển khai Thẩm tra ủy ban, Kỳ họp &amp; Biểu quyết điện tử. Ra mắt AI Copilot Legislative và Committee.</p>
+        <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;">AI Copilot &amp; tri thức</h3>
+        <p style="font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;">Triển khai Legislative, Committee, Session Copilot; AI tra cứu văn bản, hỗ trợ thẩm tra, lập biên bản, Legal Knowledge Graph v1, cổng tra cứu và Parliament TV Search v1.</p>
       </div>
       <div class="roadmap-card">
         <div style="background: rgba(20,184,166,0.2); color: var(--teal-bright); font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 16px;">12-18 THÁNG</div>
         <div style="width: 8px; height: 8px; background: rgba(255,255,255,0.2); border-radius: 50%; margin-bottom: 12px;"></div>
-        <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;">AI &amp; Truyền thông</h3>
-        <p style="font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;">Triển khai đầy đủ AI Copilot Layer, Truyền hình Quốc hội số, Họp trực tuyến bảo mật và Cổng cử tri.</p>
+        <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;">Truyền hình &amp; họp bảo mật</h3>
+        <p style="font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;">Triển khai họp trực tuyến nội bộ, phòng họp bảo mật, AI biên bản họp, watermark, tìm kiếm video, timeline, phụ đề và highlight tự động.</p>
       </div>
       <div class="roadmap-card">
         <div style="background: rgba(20,184,166,0.2); color: var(--teal-bright); font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 16px;">18-24 THÁNG</div>
         <div style="width: 8px; height: 8px; background: rgba(255,255,255,0.2); border-radius: 50%; margin-bottom: 12px;"></div>
-        <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;">Tối ưu &amp; Tích hợp</h3>
-        <p style="font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;">Tích hợp đầy đủ hệ thống quốc gia, tối ưu hiệu năng AI, triển khai Knowledge Graph và đánh giá KPI.</p>
-      </div>
-      <div class="roadmap-card">
-        <div style="background: rgba(201,168,76,0.2); color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 16px;">Tương lai</div>
-        <div style="width: 8px; height: 8px; background: var(--gold); border-radius: 50%; margin-bottom: 12px;"></div>
-        <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;">Quốc hội số hoàn chỉnh</h3>
-        <p style="font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;">Mở rộng quy mô toàn quốc, nâng cấp AI thế hệ mới, chia sẻ kinh nghiệm với Quốc hội khu vực ASEAN.</p>
+        <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;">Hoàn thiện Quốc hội số</h3>
+        <p style="font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;">Hoàn thiện AI soạn thảo nâng cao, phát hiện mâu thuẫn pháp lý, theo dõi sửa đổi dự luật, giám sát cam kết, Citizen Copilot, tích hợp dữ liệu bộ ngành và kho video thông minh.</p>
       </div>
     </div>
   </div>
@@ -945,31 +1685,44 @@
 
 <!-- VALUE SECTION -->
 <section id="value" style="padding: 80px 0; background: #fff;">
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-    <div style="max-width: 680px; margin-bottom: 56px;">
-      <div class="kicker" style="margin-bottom: 16px;">Giá trị mang lại</div>
-      <h2 class="section-title" style="margin-bottom: 20px;">Lợi ích cụ thể cho từng nhóm người dùng.</h2>
+  <div class="value-shell" style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+    <div class="value-heading">
+      <div>
+        <div class="kicker" style="margin-bottom: 18px;">Tác động triển khai</div>
+        <h2 class="value-kicker">GIÁ TRỊ <span>MANG LẠI</span></h2>
+      </div>
+      <p class="value-lead">AI Parliament OS tạo giá trị đồng thời cho cơ quan vận hành, đại biểu, ủy ban chuyên môn, truyền thông nghị trường và người dân, với trọng tâm là hiệu quả xử lý, minh bạch dữ liệu và khả năng phục vụ liên tục.</p>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden;">
-      <div style="padding: 32px 24px; border-right: 1px solid var(--gray-200); transition: all 0.3s ease;" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='transparent'">
-        <h3 style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Quốc hội</h3>
-        <p style="font-size: 13px; color: var(--slate); line-height: 1.65;">Nâng cao hiệu quả lập pháp, tăng tính minh bạch và trách nhiệm giải trình. Hạ tầng số tự chủ, bảo mật.</p>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-num">01</div>
+        <h3>Quốc hội</h3>
+        <p>Nâng cao hiệu quả lập pháp, tăng tính minh bạch và trách nhiệm giải trình trên một hạ tầng số tự chủ, bảo mật.</p>
+        <div class="value-tag">Quản trị số</div>
       </div>
-      <div style="padding: 32px 24px; border-right: 1px solid var(--gray-200); transition: all 0.3s ease;" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='transparent'">
-        <h3 style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Đại biểu</h3>
-        <p style="font-size: 13px; color: var(--slate); line-height: 1.65;">AI Copilot cá nhân hóa — tiết kiệm thời gian nghiên cứu, nâng cao chất lượng phát biểu và thẩm tra.</p>
+      <div class="value-card">
+        <div class="value-num">02</div>
+        <h3>Đại biểu</h3>
+        <p>AI Copilot cá nhân hóa giúp tiết kiệm thời gian nghiên cứu, chuẩn bị lập luận tốt hơn và nâng cao chất lượng phát biểu.</p>
+        <div class="value-tag">Hỗ trợ quyết sách</div>
       </div>
-      <div style="padding: 32px 24px; border-right: 1px solid var(--gray-200); transition: all 0.3s ease;" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='transparent'">
-        <h3 style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Ủy ban</h3>
-        <p style="font-size: 13px; color: var(--slate); line-height: 1.65;">Tự động hóa tổng hợp ý kiến và báo cáo thẩm tra — giảm thời gian chuẩn bị, tăng chất lượng phân tích.</p>
+      <div class="value-card">
+        <div class="value-num">03</div>
+        <h3>Ủy ban</h3>
+        <p>Tự động hóa tổng hợp ý kiến và báo cáo thẩm tra, giảm thời gian chuẩn bị nhưng vẫn tăng chiều sâu phân tích chuyên môn.</p>
+        <div class="value-tag">Thẩm tra nhanh</div>
       </div>
-      <div style="padding: 32px 24px; border-right: 1px solid var(--gray-200); transition: all 0.3s ease;" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='transparent'">
-        <h3 style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Truyền hình</h3>
-        <p style="font-size: 13px; color: var(--slate); line-height: 1.65;">Nền tảng phát sóng hiện đại — phụ đề tự động, lưu trữ số, tìm kiếm nội dung thông minh.</p>
+      <div class="value-card">
+        <div class="value-num">04</div>
+        <h3>Truyền hình</h3>
+        <p>Nền tảng phát sóng hiện đại với phụ đề tự động, lưu trữ số, metadata và tìm kiếm nội dung nghị trường thông minh.</p>
+        <div class="value-tag">Truyền thông số</div>
       </div>
-      <div style="padding: 32px 24px; transition: all 0.3s ease;" onmouseover="this.style.background='var(--gray-50)'" onmouseout="this.style.background='transparent'">
-        <h3 style="font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">Cử tri</h3>
-        <p style="font-size: 13px; color: var(--slate); line-height: 1.65;">Tiếp cận thông tin pháp luật dễ dàng, gửi kiến nghị và theo dõi phản hồi — tăng cường dân chủ số.</p>
+      <div class="value-card">
+        <div class="value-num">05</div>
+        <h3>Cử tri</h3>
+        <p>Tiếp cận thông tin pháp luật dễ hơn, gửi kiến nghị và theo dõi phản hồi rõ ràng hơn, tăng cường tương tác dân chủ số.</p>
+        <div class="value-tag">Phục vụ người dân</div>
       </div>
     </div>
   </div>
@@ -978,30 +1731,65 @@
 <!-- KPI SECTION -->
 <section id="kpi" style="background: var(--gray-50); padding: 80px 0;">
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-    <div style="max-width: 720px; margin-bottom: 56px;">
-      <div class="kicker" style="margin-bottom: 16px;">Chỉ số đánh giá hiệu quả</div>
-      <h2 class="section-title" style="margin-bottom: 20px;">Đo lường hiệu quả từ ngày đầu triển khai.</h2>
+    <div style="max-width: none; margin-bottom: 56px;">
+      <div class="kicker" style="margin-bottom: 20px; color: var(--navy); font-size: clamp(32px, 3vw, 48px); font-weight: 800; letter-spacing: -0.02em;">Chỉ số đánh giá hiệu quả</div>
       <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">Các chỉ số được theo dõi liên tục qua dashboard vận hành, phản ánh toàn diện hiệu quả số hóa, ứng dụng AI và chất lượng phục vụ của nền tảng.</p>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+    <div class="kpi-grid">
       <div class="kpi-card scroll-reveal">
-        <p style="font-size: 15px; color: var(--navy); font-weight: 600; line-height: 1.6;">Tỷ lệ hồ sơ được quản lý trên nền tảng số và Mức độ hài lòng của người dùng nội bộ</p>
+        <div class="kpi-head">
+          <div class="kpi-num">01</div>
+          <div class="kpi-label">Số hóa vận hành</div>
+        </div>
+        <h3>Hồ sơ và người dùng nội bộ</h3>
+        <p>Theo dõi tỷ lệ hồ sơ được quản lý trên nền tảng số và mức độ hài lòng của người dùng nội bộ.</p>
+        <div class="kpi-scope">Phạm vi: hồ sơ, người dùng nội bộ</div>
       </div>
       <div class="kpi-card scroll-reveal" style="transition-delay: 0.05s;">
-        <p style="font-size: 15px; color: var(--navy); font-weight: 600; line-height: 1.6;">Thời gian trung bình chuẩn bị tài liệu kỳ họp, lập biên bản phiên họp</p>
+        <div class="kpi-head">
+          <div class="kpi-num">02</div>
+          <div class="kpi-label">Hiệu quả xử lý</div>
+        </div>
+        <h3>Tài liệu kỳ họp và biên bản</h3>
+        <p>Đo thời gian trung bình để chuẩn bị tài liệu kỳ họp và lập biên bản phiên họp.</p>
+        <div class="kpi-scope">Phạm vi: kỳ họp, phiên họp</div>
       </div>
       <div class="kpi-card scroll-reveal" style="transition-delay: 0.15s;">
-        <p style="font-size: 15px; color: var(--navy); font-weight: 600; line-height: 1.6;">Số lượt tra cứu video phiên họp</p>
+        <div class="kpi-head">
+          <div class="kpi-num">03</div>
+          <div class="kpi-label">Tra cứu nội dung</div>
+        </div>
+        <h3>Video phiên họp</h3>
+        <p>Theo dõi số lượt tra cứu video phiên họp trên hệ thống lưu trữ và tìm kiếm nội dung.</p>
+        <div class="kpi-scope">Phạm vi: truyền hình Quốc hội</div>
       </div>
       <div class="kpi-card scroll-reveal" style="transition-delay: 0.3s;">
-        <p style="font-size: 15px; color: var(--navy); font-weight: 600; line-height: 1.6;">Số phiên họp được ghi hình, tạo phụ đề và timeline và ản tóm tắt được tạo bởi AI</p>
+        <div class="kpi-head">
+          <div class="kpi-num">04</div>
+          <div class="kpi-label">AI hỗ trợ phiên họp</div>
+        </div>
+        <h3>Ghi hình, phụ đề, timeline và tóm tắt</h3>
+        <p>Đếm số phiên họp được ghi hình, tạo phụ đề, tạo timeline và bản tóm tắt bằng AI.</p>
+        <div class="kpi-scope">Phạm vi: phiên họp, AI Copilot</div>
       </div>
       <div class="kpi-card scroll-reveal" style="transition-delay: 0.35s;">
-        <p style="font-size: 15px; color: var(--navy); font-weight: 600; line-height: 1.6;">Số cuộc họp trực tuyến bảo mật được tổ chức và lỗi tham chiếu được hệ thống cảnh báo</p>
+        <div class="kpi-head">
+          <div class="kpi-num">05</div>
+          <div class="kpi-label">An toàn và kiểm soát</div>
+        </div>
+        <h3>Họp bảo mật và cảnh báo tham chiếu</h3>
+        <p>Theo dõi số cuộc họp trực tuyến bảo mật được tổ chức và số lỗi tham chiếu được hệ thống cảnh báo.</p>
+        <div class="kpi-scope">Phạm vi: họp trực tuyến, pháp lý</div>
       </div>
       <div class="kpi-card scroll-reveal" style="transition-delay: 0.45s;">
-        <p style="font-size: 15px; color: var(--navy); font-weight: 600; line-height: 1.6;">Số lượt người dân tra cứu dự luật và sử dụng AI Copilot, đặt biệt là Citizen Copilot</p>
+        <div class="kpi-head">
+          <div class="kpi-num">06</div>
+          <div class="kpi-label">Phục vụ cử tri</div>
+        </div>
+        <h3>Tra cứu dự luật và Citizen Copilot</h3>
+        <p>Theo dõi số lượt người dân tra cứu dự luật và sử dụng AI Copilot, đặc biệt là Citizen Copilot.</p>
+        <div class="kpi-scope">Phạm vi: cổng cử tri</div>
       </div>
     </div>
   </div>
@@ -1010,54 +1798,58 @@
 <!-- NEXT STEPS SECTION -->
 <section id="next-steps" style="padding: 80px 0; background: #fff;">
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-    <div style="max-width: 680px; margin-bottom: 56px;">
-      <div class="kicker" style="margin-bottom: 16px;">Bước tiếp theo</div>
-      <h2 class="section-title" style="margin-bottom: 20px;">5 bước để khởi động AI Parliament OS.</h2>
-      <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">Lộ trình khởi động rõ ràng — từ khảo sát đến thí điểm trong 6 tháng đầu tiên.</p>
+    <div style="max-width: none; margin-bottom: 56px;">
+      <div class="kicker" style="margin-bottom: 20px; color: var(--navy); font-size: clamp(32px, 3vw, 48px); font-weight: 800; letter-spacing: -0.02em;">Đề xuất triển khai</div>
+      <p style="font-size: 17px; color: var(--slate); line-height: 1.75;">Các bước tiếp theo được sắp xếp theo đúng trình tự làm việc: làm rõ nhu cầu, khảo sát, thiết kế tổng thể, thí điểm MVP và đánh giá mở rộng.</p>
     </div>
     <div style="position: relative;">
       <div style="position: absolute; top: 18px; left: calc(10% + 18px); right: calc(10% + 18px); height: 2px; background: linear-gradient(90deg, var(--teal-bright), rgba(20,184,166,0.2)); z-index: 0;"></div>
-      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; position: relative; z-index: 1;">
+      <div class="stack-column-mobile" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; position: relative; z-index: 1;">
         <div class="step-card scroll-reveal">
           <div class="step-num">1</div>
-          <h3 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Khảo sát hiện trạng</h3>
-          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Đánh giá toàn diện hệ thống hiện tại, quy trình nghiệp vụ và nhu cầu chuyển đổi số.</p>
-          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Tuần 1-3</div>
+          <h3 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Làm việc chuyên sâu</h3>
+          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Làm việc với Văn phòng Quốc hội và các đơn vị liên quan để làm rõ nhu cầu, hiện trạng hệ thống, quy trình, dữ liệu và yêu cầu bảo mật.</p>
+          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Bước 1</div>
         </div>
         <div class="step-card scroll-reveal" style="transition-delay: 0.1s;">
           <div class="step-num">2</div>
-          <h3 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Chốt phạm vi ưu tiên</h3>
-          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Xác định module ưu tiên, phạm vi thí điểm và các bên liên quan chính.</p>
-          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Tuần 4-5</div>
+          <h3 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Khảo sát nghiệp vụ và hạ tầng</h3>
+          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Khảo sát các nhóm nghiệp vụ trọng yếu như lập pháp, thẩm tra, kỳ họp, biểu quyết, truyền hình, họp trực tuyến, giám sát và cổng người dân.</p>
+          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Bước 2</div>
         </div>
         <div class="step-card scroll-reveal" style="transition-delay: 0.2s;">
           <div class="step-num">3</div>
           <h3 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Thiết kế tổng thể</h3>
-          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Thiết kế kiến trúc chi tiết, UX/UI prototype và kế hoạch tích hợp hệ thống.</p>
-          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Tuần 6-10</div>
+          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Hoàn thiện kiến trúc tổng thể, danh mục phân hệ, mô hình dữ liệu, mô hình AI Copilot, yêu cầu bảo mật, kế hoạch triển khai, dự toán nguồn lực và phương án thí điểm.</p>
+          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Bước 3</div>
         </div>
         <div class="step-card scroll-reveal" style="transition-delay: 0.3s;">
           <div class="step-num">4</div>
-          <h3 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Dự toán nguồn lực</h3>
-          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Lập dự toán chi tiết, kế hoạch nhân sự và phương án huy động nguồn lực.</p>
-          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Tuần 11-12</div>
+          <h3 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Thí điểm MVP</h3>
+          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Lựa chọn phạm vi thí điểm có tác động rõ ràng như AI tóm tắt phiên họp, AI thẩm tra, tìm kiếm video, họp trực tuyến bảo mật hoặc cổng tra cứu dự luật.</p>
+          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Bước 4</div>
         </div>
         <div class="step-card scroll-reveal" style="transition-delay: 0.4s; border-color: rgba(20,184,166,0.3); background: rgba(20,184,166,0.02);">
           <div class="step-num" style="background: var(--teal);">5</div>
-          <h3 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Thí điểm và đánh giá</h3>
-          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Triển khai thí điểm module đầu tiên, thu thập phản hồi và đánh giá hiệu quả.</p>
-          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Tháng 3-6</div>
+          <h3 style="font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Đánh giá và mở rộng</h3>
+          <p style="font-size: 13px; color: var(--slate); line-height: 1.6;">Đánh giá hiệu quả sau thí điểm, hoàn thiện yêu cầu và mở rộng triển khai theo lộ trình.</p>
+          <div style="margin-top: 16px; font-size: 12px; color: var(--teal); font-weight: 600;">Bước 5</div>
         </div>
       </div>
     </div>
 
-    <!-- CTA Banner -->
-    <div style="margin-top: 60px; background: linear-gradient(135deg, var(--navy) 0%, #0d1f3c 100%); border-radius: 20px; padding: 48px 56px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; position: relative; overflow: hidden;">
+    <!-- SUMMARY SECTION -->
+    <div style="margin-top: 60px; background: var(--navy); border-radius: 20px; border: 1px solid rgba(20,184,166,0.2); padding: 40px 48px; position: relative; overflow: hidden;">
       <div style="position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; border: 1px solid rgba(20,184,166,0.1); border-radius: 50%; pointer-events: none;"></div>
-      <div>
-        <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--teal-bright); text-transform: uppercase; margin-bottom: 12px;">Sẵn sàng bắt đầu?</div>
-        <h3 style="font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.2;">Liên hệ để nhận Proposal chi tiết</h3>
-        <p style="font-size: 15px; color: rgba(255,255,255,0.6);">Chúng tôi sẵn sàng trình bày demo và thảo luận phương án phù hợp với Văn phòng Quốc hội.</p>
+      <div style="position: relative; z-index: 1; max-width: none;">
+        <h3 style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.3;">AI Parliament OS - nền tảng Quốc hội số thông minh.</h3>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 12px;">
+          Nền tảng tích hợp AI Copilot để hỗ trợ các quy trình lập pháp, thẩm tra, biểu quyết và giám sát. AI không thay thế vai trò của con người; hệ thống tập trung giúp tra cứu nhanh hơn, tổng hợp tốt hơn và xử lý công việc hiệu quả hơn.
+        </p>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7;">
+          Với cách triển khai theo giai đoạn, chú trọng an toàn dữ liệu và hạ tầng tự chủ, AI Parliament OS hướng tới việc phục vụ hoạt động Quốc hội số theo hướng hiện đại, hiệu quả và bảo mật trong quá trình chuyển đổi số quốc gia.
+        </p>
+      </div>
     </div>
   </div>
 </section>
@@ -1065,7 +1857,7 @@
 <!-- FOOTER -->
 <footer style="padding: 60px 0 0;">
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--gray-200);">
+    <div class="stack-column-mobile" style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--gray-200);">
       <div>
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
           <div style="width: 40px; height: 40px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
@@ -1077,7 +1869,7 @@
           </div>
         </div>
         <p style="font-size: 14px; color: var(--slate); line-height: 1.75; max-width: 380px; margin-bottom: 20px;">
-          Đề án chuyển đổi số trọng điểm cho Quốc hội Việt Nam giai đoạn 2025–2030 — tích hợp AI Copilot, số hóa nghiệp vụ và bảo mật tự chủ.
+          Đề án chuyển đổi số trọng điểm cho Quốc hội Việt Nam giai đoạn 2025–2030 - tích hợp AI Copilot, số hóa nghiệp vụ và bảo mật tự chủ.
         </p>
         <div style="display: flex; gap: 12px;">
           <div class="security-badge" style="font-size: 11px; padding: 8px 12px;">
@@ -1085,7 +1877,7 @@
             Level 4+ Security
           </div>
           <div style="background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 8px 12px; font-size: 11px; font-weight: 700; color: var(--gold); display: flex; align-items: center; gap: 6px;">
-            Made in Vietnam — AILOGY
+            Made in Vietnam - AILOGY
           </div>
         </div>
       </div>
@@ -1102,43 +1894,15 @@
           </div>
           <div style="font-size: 14px; color: var(--slate);">
             <div style="font-weight: 600; color: var(--navy); margin-bottom: 2px;">Email</div>
-            contact@ailogy.vn
+              hr@ailogy.vn
           </div>
         </div>
-      </div>
-      <div>
-        <h4 style="font-size: 13px; font-weight: 700; color: var(--navy); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px;">Pháp lý</h4>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <div style="font-size: 14px; color: var(--slate);"><span style="font-weight: 600; color: var(--navy);">Phân loại:</span> Lưu hành nội bộ</div>
-          <div style="font-size: 14px; color: var(--slate);"><span style="font-weight: 600; color: var(--navy);">Mã đề án:</span> AP-OS/2025-2030</div>
-          <div style="font-size: 14px; color: var(--slate);"><span style="font-weight: 600; color: var(--navy);">Phiên bản:</span> v1.0.0</div>
-          <div style="font-size: 14px; color: var(--slate);"><span style="font-weight: 600; color: var(--navy);">Cập nhật:</span> Tháng 01/2025</div>
-          <div style="font-size: 13px; color: var(--gray-400); margin-top: 8px; line-height: 1.5;">
-            Tài liệu này được bảo mật theo quy định.
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="padding: 20px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-      <div style="font-size: 13px; color: var(--gray-400);">
-        &copy; 2025 AI Parliament OS — AILOGY. Đề án chuyển đổi số Quốc hội Việt Nam 2025–2030.
       </div>
     </div>
   </div>
 </footer>
 
 <script>
-  const ARCH_LAYER_COUNT = 5;
-
-  function switchArch(index) {
-    for (let i = 0; i < ARCH_LAYER_COUNT; i++) {
-      document.getElementById('arch-btn-' + i).classList.remove('active');
-      document.getElementById('arch-detail-' + i).classList.remove('active');
-    }
-    document.getElementById('arch-btn-' + index).classList.add('active');
-    document.getElementById('arch-detail-' + index).classList.add('active');
-  }
-
   function toggleMenu() {
     document.getElementById('mobile-menu').classList.toggle('open');
   }
